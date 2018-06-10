@@ -14,9 +14,8 @@ Atmel Studio 7.0
 https://www.microchip.com/mplab/avr-support/atmel-studio-7
 
 ## Author Info
-William S. Woo
-codefoolosopher@gmail.com
-woo0327@outlook.com
+William S. Woo / codefoolosopher@gmail.com / woo0327@outlook.com
 
 ## Coding Standard
+https://github.com/a830327/Atmega128/blob/master/Related%20Document/CodingStandard.pdf
 
