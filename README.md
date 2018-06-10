@@ -19,3 +19,5 @@ William S. Woo / codefoolosopher@gmail.com / woo0327@outlook.com
 ## Coding Standard
 https://github.com/a830327/Atmega128/blob/master/Related%20Document/CodingStandard.pdf
 
+## Data Sheet of Atmega128A
+https://github.com/a830327/Atmega128/blob/master/DataSheet/ATmega128A_Datasheet.pdf
