@@ -1,5 +1,5 @@
 /* ServoMotor.c
- *
+ * https://github.com/a830327/Atmega128/blob/master/TimerCounter/ServoMotor/main.c
  * Created: 2018-06-08 ¿ÀÈÄ 5:47:34
  * Author : Seungan Woo
  */
