@@ -8,3 +8,6 @@ https://github.com/a830327/Atmega128/blob/master/Schemetic/schematic.PNG
 
 ## Board Configuration
 https://github.com/a830327/Atmega128/blob/master/Schemetic/mcu.jpg
+
+## IDE
+Atmel Studio 7.0
