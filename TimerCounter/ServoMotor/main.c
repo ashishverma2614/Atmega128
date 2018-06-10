@@ -32,12 +32,12 @@ ISR(INT2_vect) // TODO: switch de-bouncing
 		moveAngle = 20; // 180 degree (ZERO_DEGREE + 2.0ms = 2.5ms), exception handling
 }
 
-// per 1 switch pressing, 0.1ms of high width decrease, exception handling
+// per 1 switch pressing, 0.1ms of high width decrease
 ISR(INT3_vect) // TODO: switch de-bouncing
 {
 	--moveAngle;
 	if (moveAngle < 0)
-		moveAngle = 0; // 0 degree (ZERO_DEGREE = 0.5ms)
+		moveAngle = 0; // 0 degree (ZERO_DEGREE = 0.5ms), exception handling
 }
 
 ISR(TIMER0_COMP_vect) // 100us(0.1ms)
