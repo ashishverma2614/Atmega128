@@ -12,7 +12,7 @@
 
 int main(void)
 {
-	DDRB = 0x0ff;
+	DDRB = 0xff;
     /* Replace with your application code */
     while (1) 
     {

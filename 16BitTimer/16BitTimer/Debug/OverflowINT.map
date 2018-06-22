@@ -394,30 +394,30 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x830
+.debug_info     0x00000000      0x83b
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_info    0x00000780       0xb0 main.o
+ .debug_info    0x00000780       0xbb main.o
 
 .debug_abbrev   0x00000000      0x797
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_abbrev  0x00000718       0x7f main.o
 
-.debug_line     0x00000000      0x254
+.debug_line     0x00000000      0x256
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x169 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x00000169       0xeb main.o
+ .debug_line    0x00000169       0xed main.o
 
 .debug_frame    0x00000000       0x48
  *(.debug_frame)
  .debug_frame   0x00000000       0x48 main.o
 
-.debug_str      0x00000000      0x3cd
+.debug_str      0x00000000      0x3d5
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_str     0x0000027d      0x150 main.o
-                                0x184 (size before relaxing)
+ .debug_str     0x0000027d      0x158 main.o
+                                0x18c (size before relaxing)
 
 .debug_loc      0x00000000       0x49
  *(.debug_loc)

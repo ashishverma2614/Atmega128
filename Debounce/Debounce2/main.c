@@ -1,6 +1,6 @@
 /* This is another way to reduce chattering problem. In this method, to relieve bouncing pitfall, 
  * I check button state twice in a short time.
-*/
+ */
 #define F_CPU 16000000UL
 #include <avr/io.h>
 #include <util/delay.h>

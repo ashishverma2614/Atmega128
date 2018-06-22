@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000034  00000000  00000000  00001610  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000410  00000000  00000000  00001644  2**0
+  9 .debug_str    00000412  00000000  00000000  00001644  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000000c2  00000000  00000000  00001a54  2**0
+ 10 .debug_loc    000000c2  00000000  00000000  00001a56  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000018  00000000  00000000  00001b16  2**0
+ 11 .debug_ranges 00000018  00000000  00000000  00001b18  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -158,7 +158,7 @@ void turn_on_led_PWM(int dim)
   c0:	91 f7       	brne	.-28     	; 0xa6 <turn_on_led_PWM+0x8>
 	{
 		if (i > dim) PORTB = 0x00; // i is greater than 256, then turn off led
-		_delay_us(LED_TIME);
+		_delay_us(LED_TIME); // 20us
 	}
 }
   c2:	08 95       	ret

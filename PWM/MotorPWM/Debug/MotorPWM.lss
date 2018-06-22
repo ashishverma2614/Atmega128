@@ -1,0 +1,349 @@
+
+MotorPWM.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  000001e4  00000258  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001e4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  0000025a  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000028c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  000002cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000092a  00000000  00000000  00000304  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000083d  00000000  00000000  00000c2e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000356  00000000  00000000  0000146b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000e4  00000000  00000000  000017c4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    0000042b  00000000  00000000  000018a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000204  00000000  00000000  00001cd3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00001ed7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	58 c0       	rjmp	.+176    	; 0xb6 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	56 c0       	rjmp	.+172    	; 0xb6 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	77 c0       	rjmp	.+238    	; 0xfc <__vector_3>
+   e:	00 00       	nop
+  10:	ae c0       	rjmp	.+348    	; 0x16e <__vector_4>
+  12:	00 00       	nop
+  14:	50 c0       	rjmp	.+160    	; 0xb6 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	4e c0       	rjmp	.+156    	; 0xb6 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	4c c0       	rjmp	.+152    	; 0xb6 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	4a c0       	rjmp	.+148    	; 0xb6 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	48 c0       	rjmp	.+144    	; 0xb6 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	46 c0       	rjmp	.+140    	; 0xb6 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	44 c0       	rjmp	.+136    	; 0xb6 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	42 c0       	rjmp	.+132    	; 0xb6 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	40 c0       	rjmp	.+128    	; 0xb6 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	3e c0       	rjmp	.+124    	; 0xb6 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	3c c0       	rjmp	.+120    	; 0xb6 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	3a c0       	rjmp	.+116    	; 0xb6 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	38 c0       	rjmp	.+112    	; 0xb6 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	36 c0       	rjmp	.+108    	; 0xb6 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	34 c0       	rjmp	.+104    	; 0xb6 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	32 c0       	rjmp	.+100    	; 0xb6 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	30 c0       	rjmp	.+96     	; 0xb6 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	2e c0       	rjmp	.+92     	; 0xb6 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	2c c0       	rjmp	.+88     	; 0xb6 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	2a c0       	rjmp	.+84     	; 0xb6 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	28 c0       	rjmp	.+80     	; 0xb6 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	26 c0       	rjmp	.+76     	; 0xb6 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	24 c0       	rjmp	.+72     	; 0xb6 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	22 c0       	rjmp	.+68     	; 0xb6 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	20 c0       	rjmp	.+64     	; 0xb6 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	1e c0       	rjmp	.+60     	; 0xb6 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	1c c0       	rjmp	.+56     	; 0xb6 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	1a c0       	rjmp	.+52     	; 0xb6 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	18 c0       	rjmp	.+48     	; 0xb6 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	16 c0       	rjmp	.+44     	; 0xb6 <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	e4 ee       	ldi	r30, 0xE4	; 228
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a2 30       	cpi	r26, 0x02	; 2
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+  b2:	02 d0       	rcall	.+4      	; 0xb8 <main>
+  b4:	95 c0       	rjmp	.+298    	; 0x1e0 <_exit>
+
+000000b6 <__bad_interrupt>:
+  b6:	a4 cf       	rjmp	.-184    	; 0x0 <__vectors>
+
+000000b8 <main>:
+
+
+
+int main(void)
+{
+    DDRB |= (1 << DDB4); // set PB4(OC0) as output
+  b8:	bc 9a       	sbi	0x17, 4	; 23
+	DDRD = 0x00; // set SW1, 2 as input
+  ba:	11 ba       	out	0x11, r1	; 17
+	PORTD = 0b00001100; // use internal pull-up resist
+  bc:	8c e0       	ldi	r24, 0x0C	; 12
+  be:	82 bb       	out	0x12, r24	; 18
+	
+	// timer0 setting: (1) phase correct PWM (2) timer stop(?)
+	TCCR0 |= (0 << WGM01) | (1 << WGM00) | (2 << COM00);
+  c0:	83 b7       	in	r24, 0x33	; 51
+  c2:	80 66       	ori	r24, 0x60	; 96
+  c4:	83 bf       	out	0x33, r24	; 51
+	TCCR0 |= (1 << CS01); // pre-scaler ratio: 8
+  c6:	83 b7       	in	r24, 0x33	; 51
+  c8:	82 60       	ori	r24, 0x02	; 2
+  ca:	83 bf       	out	0x33, r24	; 51
+	
+	// ext. INT setting, falling edge
+	EICRA |= (2 << ISC20) | (2 << ISC30);
+  cc:	ea e6       	ldi	r30, 0x6A	; 106
+  ce:	f0 e0       	ldi	r31, 0x00	; 0
+  d0:	80 81       	ld	r24, Z
+  d2:	80 6a       	ori	r24, 0xA0	; 160
+  d4:	80 83       	st	Z, r24
+	EIMSK |= (1 << INT2) | (1 << INT3); // ext. INT2, 3, enable
+  d6:	89 b7       	in	r24, 0x39	; 57
+  d8:	8c 60       	ori	r24, 0x0C	; 12
+  da:	89 bf       	out	0x39, r24	; 57
+    while (1) { OCR0 = duty; }
+  dc:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+  e0:	81 bf       	out	0x31, r24	; 49
+  e2:	fc cf       	rjmp	.-8      	; 0xdc <main+0x24>
+
+000000e4 <msec_delay>:
+}
+
+void msec_delay(int n)
+{
+	for ( ; n > 0; n--)
+  e4:	18 16       	cp	r1, r24
+  e6:	19 06       	cpc	r1, r25
+  e8:	44 f4       	brge	.+16     	; 0xfa <msec_delay+0x16>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  ea:	ef e9       	ldi	r30, 0x9F	; 159
+  ec:	ff e0       	ldi	r31, 0x0F	; 15
+  ee:	31 97       	sbiw	r30, 0x01	; 1
+  f0:	f1 f7       	brne	.-4      	; 0xee <msec_delay+0xa>
+  f2:	00 c0       	rjmp	.+0      	; 0xf4 <msec_delay+0x10>
+  f4:	00 00       	nop
+  f6:	01 97       	sbiw	r24, 0x01	; 1
+  f8:	c1 f7       	brne	.-16     	; 0xea <msec_delay+0x6>
+  fa:	08 95       	ret
+
+000000fc <__vector_3>:
+static unit8_t duty = 125; // initial duty ratio
+
+void msec_delay(int n); // function for time delay
+
+ISR(INT2_vect) // ISR to increase duty ratio, SW1 connected to PD2
+{
+  fc:	1f 92       	push	r1
+  fe:	0f 92       	push	r0
+ 100:	0f b6       	in	r0, 0x3f	; 63
+ 102:	0f 92       	push	r0
+ 104:	11 24       	eor	r1, r1
+ 106:	0b b6       	in	r0, 0x3b	; 59
+ 108:	0f 92       	push	r0
+ 10a:	2f 93       	push	r18
+ 10c:	3f 93       	push	r19
+ 10e:	4f 93       	push	r20
+ 110:	5f 93       	push	r21
+ 112:	6f 93       	push	r22
+ 114:	7f 93       	push	r23
+ 116:	8f 93       	push	r24
+ 118:	9f 93       	push	r25
+ 11a:	af 93       	push	r26
+ 11c:	bf 93       	push	r27
+ 11e:	ef 93       	push	r30
+ 120:	ff 93       	push	r31
+	duty += 5;
+ 122:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 126:	8b 5f       	subi	r24, 0xFB	; 251
+	if (duty >= 250) duty = 250; // define max duty ratio
+ 128:	8a 3f       	cpi	r24, 0xFA	; 250
+ 12a:	18 f4       	brcc	.+6      	; 0x132 <__vector_3+0x36>
+
+void msec_delay(int n); // function for time delay
+
+ISR(INT2_vect) // ISR to increase duty ratio, SW1 connected to PD2
+{
+	duty += 5;
+ 12c:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 130:	03 c0       	rjmp	.+6      	; 0x138 <__vector_3+0x3c>
+	if (duty >= 250) duty = 250; // define max duty ratio
+ 132:	8a ef       	ldi	r24, 0xFA	; 250
+ 134:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+	msec_delay(DEBOUNCING_DELAY); // switch de-bouncing
+ 138:	85 e0       	ldi	r24, 0x05	; 5
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	d3 df       	rcall	.-90     	; 0xe4 <msec_delay>
+	while(~PIND & 0x04); // wait for switch off
+ 13e:	82 9b       	sbis	0x10, 2	; 16
+ 140:	fe cf       	rjmp	.-4      	; 0x13e <__vector_3+0x42>
+	EIFR |= (1 << INTF2); // *INT2 flag reset
+ 142:	88 b7       	in	r24, 0x38	; 56
+ 144:	84 60       	ori	r24, 0x04	; 4
+ 146:	88 bf       	out	0x38, r24	; 56
+}
+ 148:	ff 91       	pop	r31
+ 14a:	ef 91       	pop	r30
+ 14c:	bf 91       	pop	r27
+ 14e:	af 91       	pop	r26
+ 150:	9f 91       	pop	r25
+ 152:	8f 91       	pop	r24
+ 154:	7f 91       	pop	r23
+ 156:	6f 91       	pop	r22
+ 158:	5f 91       	pop	r21
+ 15a:	4f 91       	pop	r20
+ 15c:	3f 91       	pop	r19
+ 15e:	2f 91       	pop	r18
+ 160:	0f 90       	pop	r0
+ 162:	0b be       	out	0x3b, r0	; 59
+ 164:	0f 90       	pop	r0
+ 166:	0f be       	out	0x3f, r0	; 63
+ 168:	0f 90       	pop	r0
+ 16a:	1f 90       	pop	r1
+ 16c:	18 95       	reti
+
+0000016e <__vector_4>:
+
+ISR(INT3_vect) // decrease duty, SW2 connected to PD3
+{
+ 16e:	1f 92       	push	r1
+ 170:	0f 92       	push	r0
+ 172:	0f b6       	in	r0, 0x3f	; 63
+ 174:	0f 92       	push	r0
+ 176:	11 24       	eor	r1, r1
+ 178:	0b b6       	in	r0, 0x3b	; 59
+ 17a:	0f 92       	push	r0
+ 17c:	2f 93       	push	r18
+ 17e:	3f 93       	push	r19
+ 180:	4f 93       	push	r20
+ 182:	5f 93       	push	r21
+ 184:	6f 93       	push	r22
+ 186:	7f 93       	push	r23
+ 188:	8f 93       	push	r24
+ 18a:	9f 93       	push	r25
+ 18c:	af 93       	push	r26
+ 18e:	bf 93       	push	r27
+ 190:	ef 93       	push	r30
+ 192:	ff 93       	push	r31
+	duty -= 5;
+ 194:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 198:	85 50       	subi	r24, 0x05	; 5
+	if (duty <= 5) duty = 5; // define min duty
+ 19a:	86 30       	cpi	r24, 0x06	; 6
+ 19c:	18 f0       	brcs	.+6      	; 0x1a4 <__vector_4+0x36>
+	EIFR |= (1 << INTF2); // *INT2 flag reset
+}
+
+ISR(INT3_vect) // decrease duty, SW2 connected to PD3
+{
+	duty -= 5;
+ 19e:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+ 1a2:	03 c0       	rjmp	.+6      	; 0x1aa <__vector_4+0x3c>
+	if (duty <= 5) duty = 5; // define min duty
+ 1a4:	85 e0       	ldi	r24, 0x05	; 5
+ 1a6:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+	msec_delay(DEBOUNCING_DELAY);
+ 1aa:	85 e0       	ldi	r24, 0x05	; 5
+ 1ac:	90 e0       	ldi	r25, 0x00	; 0
+ 1ae:	9a df       	rcall	.-204    	; 0xe4 <msec_delay>
+	while(~PIND & 0x08);
+ 1b0:	83 9b       	sbis	0x10, 3	; 16
+ 1b2:	fe cf       	rjmp	.-4      	; 0x1b0 <__vector_4+0x42>
+	EIFR |= (1 << INTF3); // flag reset
+ 1b4:	88 b7       	in	r24, 0x38	; 56
+ 1b6:	88 60       	ori	r24, 0x08	; 8
+ 1b8:	88 bf       	out	0x38, r24	; 56
+}
+ 1ba:	ff 91       	pop	r31
+ 1bc:	ef 91       	pop	r30
+ 1be:	bf 91       	pop	r27
+ 1c0:	af 91       	pop	r26
+ 1c2:	9f 91       	pop	r25
+ 1c4:	8f 91       	pop	r24
+ 1c6:	7f 91       	pop	r23
+ 1c8:	6f 91       	pop	r22
+ 1ca:	5f 91       	pop	r21
+ 1cc:	4f 91       	pop	r20
+ 1ce:	3f 91       	pop	r19
+ 1d0:	2f 91       	pop	r18
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0b be       	out	0x3b, r0	; 59
+ 1d6:	0f 90       	pop	r0
+ 1d8:	0f be       	out	0x3f, r0	; 63
+ 1da:	0f 90       	pop	r0
+ 1dc:	1f 90       	pop	r1
+ 1de:	18 95       	reti
+
+000001e0 <_exit>:
+ 1e0:	f8 94       	cli
+
+000001e2 <__stop_program>:
+ 1e2:	ff cf       	rjmp	.-2      	; 0x1e2 <__stop_program>

@@ -1,5 +1,5 @@
 // To verify this code, connect 32,768KHz ocillator with PB3 and PB4.
-// This code is to blink a LED by 0.5sec using external ocillator.
+// This code is to blink a LED by 0.5sec using external oscillator.
 
 #define F_CPU 16000000L
 #include <avr/io.h>
@@ -19,7 +19,7 @@ int main(void)
 	DDRB = 0xFF; // set port as output
 	PORTB = 0x00; // initial led state: all off
 
-	ASSR |= (1 << AS0);
+	ASSR |= (1 << AS0); // to user external oscillator
 
 	TCCR0 |= (1 << CS02) | (1 << CS01) | (1 << CS00);
 	TIMSK |= (1 << TOIE0); // overflow interrupt enable

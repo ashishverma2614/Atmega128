@@ -29,7 +29,7 @@ void turn_on_led_PWM(int dim)
 	for (int i = 0; i < 256; i++)
 	{
 		if (i > dim) PORTB = 0x00; // i is greater than 256, then turn off led
-		_delay_us(LED_TIME);
+		_delay_us(LED_TIME); // 20us
 	}
 }
 

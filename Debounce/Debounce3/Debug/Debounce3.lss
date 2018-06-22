@@ -1,0 +1,308 @@
+
+Debounce3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  00000194  00000228  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000194  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000002  00800102  00800102  0000022a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000022a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000025c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  0000029c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000008af  00000000  00000000  000002d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007d1  00000000  00000000  00000b83  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000002e6  00000000  00000000  00001354  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000088  00000000  00000000  0000163c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003fc  00000000  00000000  000016c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000143  00000000  00000000  00001ac0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  00001c03  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	60 c0       	rjmp	.+192    	; 0xc6 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	5e c0       	rjmp	.+188    	; 0xc6 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	81 c0       	rjmp	.+258    	; 0x110 <__vector_3>
+   e:	00 00       	nop
+  10:	96 c0       	rjmp	.+300    	; 0x13e <__vector_4>
+  12:	00 00       	nop
+  14:	58 c0       	rjmp	.+176    	; 0xc6 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	56 c0       	rjmp	.+172    	; 0xc6 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	54 c0       	rjmp	.+168    	; 0xc6 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	52 c0       	rjmp	.+164    	; 0xc6 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	50 c0       	rjmp	.+160    	; 0xc6 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	4e c0       	rjmp	.+156    	; 0xc6 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	4c c0       	rjmp	.+152    	; 0xc6 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	4a c0       	rjmp	.+148    	; 0xc6 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	48 c0       	rjmp	.+144    	; 0xc6 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	46 c0       	rjmp	.+140    	; 0xc6 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	44 c0       	rjmp	.+136    	; 0xc6 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	43 c0       	rjmp	.+134    	; 0xc8 <__vector_16>
+  42:	00 00       	nop
+  44:	40 c0       	rjmp	.+128    	; 0xc6 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	3e c0       	rjmp	.+124    	; 0xc6 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	3c c0       	rjmp	.+120    	; 0xc6 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	3a c0       	rjmp	.+116    	; 0xc6 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	38 c0       	rjmp	.+112    	; 0xc6 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	36 c0       	rjmp	.+108    	; 0xc6 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	34 c0       	rjmp	.+104    	; 0xc6 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	32 c0       	rjmp	.+100    	; 0xc6 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	30 c0       	rjmp	.+96     	; 0xc6 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	2e c0       	rjmp	.+92     	; 0xc6 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	2c c0       	rjmp	.+88     	; 0xc6 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	2a c0       	rjmp	.+84     	; 0xc6 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	28 c0       	rjmp	.+80     	; 0xc6 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	26 c0       	rjmp	.+76     	; 0xc6 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	24 c0       	rjmp	.+72     	; 0xc6 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	22 c0       	rjmp	.+68     	; 0xc6 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	20 c0       	rjmp	.+64     	; 0xc6 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	1e c0       	rjmp	.+60     	; 0xc6 <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	e4 e9       	ldi	r30, 0x94	; 148
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a2 30       	cpi	r26, 0x02	; 2
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+
+000000b2 <__do_clear_bss>:
+  b2:	21 e0       	ldi	r18, 0x01	; 1
+  b4:	a2 e0       	ldi	r26, 0x02	; 2
+  b6:	b1 e0       	ldi	r27, 0x01	; 1
+  b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
+
+000000ba <.do_clear_bss_loop>:
+  ba:	1d 92       	st	X+, r1
+
+000000bc <.do_clear_bss_start>:
+  bc:	a4 30       	cpi	r26, 0x04	; 4
+  be:	b2 07       	cpc	r27, r18
+  c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
+  c2:	53 d0       	rcall	.+166    	; 0x16a <main>
+  c4:	65 c0       	rjmp	.+202    	; 0x190 <_exit>
+
+000000c6 <__bad_interrupt>:
+  c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
+
+000000c8 <__vector_16>:
+unsigned char dir = 0; // 정지상태
+
+// 오버플로 타이머에 의한 디바운스 시간설정
+// 일정시간 입력무시
+ISR(TIMER0_OVF_vect)
+{
+  c8:	1f 92       	push	r1
+  ca:	0f 92       	push	r0
+  cc:	0f b6       	in	r0, 0x3f	; 63
+  ce:	0f 92       	push	r0
+  d0:	11 24       	eor	r1, r1
+  d2:	8f 93       	push	r24
+  d4:	9f 93       	push	r25
+	++cnt;
+  d6:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <__data_end>
+  da:	90 91 03 01 	lds	r25, 0x0103	; 0x800103 <__data_end+0x1>
+  de:	01 96       	adiw	r24, 0x01	; 1
+	if (cnt == 10) // 10 ~ 30
+  e0:	8a 30       	cpi	r24, 0x0A	; 10
+  e2:	91 05       	cpc	r25, r1
+  e4:	29 f0       	breq	.+10     	; 0xf0 <__vector_16+0x28>
+
+// 오버플로 타이머에 의한 디바운스 시간설정
+// 일정시간 입력무시
+ISR(TIMER0_OVF_vect)
+{
+	++cnt;
+  e6:	90 93 03 01 	sts	0x0103, r25	; 0x800103 <__data_end+0x1>
+  ea:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <__data_end>
+  ee:	09 c0       	rjmp	.+18     	; 0x102 <__vector_16+0x3a>
+	if (cnt == 10) // 10 ~ 30
+	{
+		cnt = 0; //카운트 리셋
+  f0:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <__data_end+0x1>
+  f4:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <__data_end>
+		EIMSK = 0x0C; // 인터럽트를 살린다
+  f8:	8c e0       	ldi	r24, 0x0C	; 12
+  fa:	89 bf       	out	0x39, r24	; 57
+		TCCR0 = 0x00; // 타이머 인터럽트 정지
+  fc:	13 be       	out	0x33, r1	; 51
+		EIFR = 0x01; //혹시 중간에 들어올 인터럽트를 위해 지워둔다
+  fe:	81 e0       	ldi	r24, 0x01	; 1
+ 100:	88 bf       	out	0x38, r24	; 56
+	}
+}
+ 102:	9f 91       	pop	r25
+ 104:	8f 91       	pop	r24
+ 106:	0f 90       	pop	r0
+ 108:	0f be       	out	0x3f, r0	; 63
+ 10a:	0f 90       	pop	r0
+ 10c:	1f 90       	pop	r1
+ 10e:	18 95       	reti
+
+00000110 <__vector_3>:
+
+ISR(INT2_vect) // move from LSB to MSB
+{
+ 110:	1f 92       	push	r1
+ 112:	0f 92       	push	r0
+ 114:	0f b6       	in	r0, 0x3f	; 63
+ 116:	0f 92       	push	r0
+ 118:	11 24       	eor	r1, r1
+ 11a:	8f 93       	push	r24
+	char rightPattern = (ledPattern >> 1) | (ledPattern << 7);
+ 11c:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+	ledPattern = rightPattern;
+ 120:	80 fb       	bst	r24, 0
+ 122:	87 95       	ror	r24
+ 124:	87 f9       	bld	r24, 7
+ 126:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+
+	TCCR0 = 0x01; //타이머 인터럽트를 다시 켠다(일정시간 지연을 위해)
+ 12a:	81 e0       	ldi	r24, 0x01	; 1
+ 12c:	83 bf       	out	0x33, r24	; 51
+	TCNT0 = 0; // 타이머 인터럽트의 초기화(처음부터 센다)
+ 12e:	12 be       	out	0x32, r1	; 50
+	EIMSK = 0; // 외부 인터럽트를 잠시 중단한다(타이머 인터럽트가 돌아가는 시간만큼)
+ 130:	19 be       	out	0x39, r1	; 57
+}
+ 132:	8f 91       	pop	r24
+ 134:	0f 90       	pop	r0
+ 136:	0f be       	out	0x3f, r0	; 63
+ 138:	0f 90       	pop	r0
+ 13a:	1f 90       	pop	r1
+ 13c:	18 95       	reti
+
+0000013e <__vector_4>:
+ISR(INT3_vect) // move from MSB to LSB
+{
+ 13e:	1f 92       	push	r1
+ 140:	0f 92       	push	r0
+ 142:	0f b6       	in	r0, 0x3f	; 63
+ 144:	0f 92       	push	r0
+ 146:	11 24       	eor	r1, r1
+ 148:	8f 93       	push	r24
+	char leftPattern = (ledPattern << 1) | (ledPattern >> 7);
+ 14a:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+	ledPattern = leftPattern;
+ 14e:	88 0f       	add	r24, r24
+ 150:	81 1d       	adc	r24, r1
+ 152:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <__data_start>
+	TCCR0 = 0x01;
+ 156:	81 e0       	ldi	r24, 0x01	; 1
+ 158:	83 bf       	out	0x33, r24	; 51
+	TCNT0 = 0;
+ 15a:	12 be       	out	0x32, r1	; 50
+	EIMSK = 0;
+ 15c:	19 be       	out	0x39, r1	; 57
+}
+ 15e:	8f 91       	pop	r24
+ 160:	0f 90       	pop	r0
+ 162:	0f be       	out	0x3f, r0	; 63
+ 164:	0f 90       	pop	r0
+ 166:	1f 90       	pop	r1
+ 168:	18 95       	reti
+
+0000016a <main>:
+
+
+int main(void)
+{
+	//포트 및 오버플로우 인터럽트 설정
+	DDRB = 0xff;
+ 16a:	8f ef       	ldi	r24, 0xFF	; 255
+ 16c:	87 bb       	out	0x17, r24	; 23
+	PORTD = 0xff; // led패턴 출력
+ 16e:	82 bb       	out	0x12, r24	; 18
+
+	EICRA = 0xa0; // 하강엣지설정
+ 170:	80 ea       	ldi	r24, 0xA0	; 160
+ 172:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__TEXT_REGION_LENGTH__+0x7e006a>
+	EIMSK = 0x0c; // 0000_1100
+ 176:	8c e0       	ldi	r24, 0x0C	; 12
+ 178:	89 bf       	out	0x39, r24	; 57
+
+	TCCR0 = 0x00; // 타이머 정지 상태
+ 17a:	13 be       	out	0x33, r1	; 51
+	TIMSK = 0x01; // 오버플로우 인터럽트 인에이블
+ 17c:	81 e0       	ldi	r24, 0x01	; 1
+ 17e:	87 bf       	out	0x37, r24	; 55
+	TCNT0 = 0x00;
+ 180:	12 be       	out	0x32, r1	; 50
+	SREG |= 0x80;
+ 182:	8f b7       	in	r24, 0x3f	; 63
+ 184:	80 68       	ori	r24, 0x80	; 128
+ 186:	8f bf       	out	0x3f, r24	; 63
+
+	while (1)
+	{
+		PORTB = ledPattern;
+ 188:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 18c:	88 bb       	out	0x18, r24	; 24
+ 18e:	fc cf       	rjmp	.-8      	; 0x188 <main+0x1e>
+
+00000190 <_exit>:
+ 190:	f8 94       	cli
+
+00000192 <__stop_program>:
+ 192:	ff cf       	rjmp	.-2      	; 0x192 <__stop_program>

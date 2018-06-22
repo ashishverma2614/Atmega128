@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000028  00000000  00000000  000001e0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000830  00000000  00000000  00000208  2**0
+  6 .debug_info   0000083b  00000000  00000000  00000208  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000797  00000000  00000000  00000a38  2**0
+  7 .debug_abbrev 00000797  00000000  00000000  00000a43  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000254  00000000  00000000  000011cf  2**0
+  8 .debug_line   00000256  00000000  00000000  000011da  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000048  00000000  00000000  00001424  2**2
+  9 .debug_frame  00000048  00000000  00000000  00001430  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003cd  00000000  00000000  0000146c  2**0
+ 10 .debug_str    000003d5  00000000  00000000  00001478  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000049  00000000  00000000  00001839  2**0
+ 11 .debug_loc    00000049  00000000  00000000  0000184d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000018  00000000  00000000  00001882  2**0
+ 12 .debug_ranges 00000018  00000000  00000000  00001896  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -132,11 +132,11 @@ Disassembly of section .text:
   ac:	a9 cf       	rjmp	.-174    	; 0x0 <__vectors>
 
 000000ae <__vector_14>:
-#include <avr/interrupt.h>
+typedef unsigned char unit8_t; // tried to use typedef for parsimony
 
-unsigned char state = 0; // led off
+unit8_t state = 0; // led off
 
-ISR(TIMER1_OVF_vect)
+ISR(TIMER1_OVF_vect) // overflow takes place about 1s
 {
   ae:	1f 92       	push	r1
   b0:	0f 92       	push	r0
@@ -151,13 +151,13 @@ ISR(TIMER1_OVF_vect)
   c2:	81 11       	cpse	r24, r1
   c4:	90 e0       	ldi	r25, 0x00	; 0
   c6:	90 93 00 01 	sts	0x0100, r25	; 0x800100 <_edata>
-	if (state) PORTB = 1; // led on
+	if (state) PORTB = 0x01 << 1; // led[1] on
   ca:	81 11       	cpse	r24, r1
   cc:	03 c0       	rjmp	.+6      	; 0xd4 <__vector_14+0x26>
-  ce:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	82 e0       	ldi	r24, 0x02	; 2
   d0:	88 bb       	out	0x18, r24	; 24
   d2:	01 c0       	rjmp	.+2      	; 0xd6 <__vector_14+0x28>
-	else PORTB = 0; // led off
+	else PORTB = 0x00; // led off
   d4:	18 ba       	out	0x18, r1	; 24
 }
   d6:	9f 91       	pop	r25
@@ -173,11 +173,11 @@ ISR(TIMER1_OVF_vect)
 
 int main(void)
 {	
-	DDRB |= (1 << DDRB0);
-  e4:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB |= (1 << DDRB1); // set PB2 as output
+  e4:	b9 9a       	sbi	0x17, 1	; 23
 	PORTB = 0x00; // start with led off
   e6:	18 ba       	out	0x18, r1	; 24
-	TCCR1B |= (1 << CS12); // pre-scaler ration 256
+	TCCR1B |= (1 << CS12); // pre-scaler ratio 256(b100)
   e8:	8e b5       	in	r24, 0x2e	; 46
   ea:	84 60       	ori	r24, 0x04	; 4
   ec:	8e bd       	out	0x2e, r24	; 46

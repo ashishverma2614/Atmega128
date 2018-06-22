@@ -121,7 +121,7 @@ Disassembly of section .text:
 
 int main(void)
 {
-	DDRB = 0x0ff;
+	DDRB = 0xff;
   9e:	8f ef       	ldi	r24, 0xFF	; 255
   a0:	87 bb       	out	0x17, r24	; 23
     /* Replace with your application code */

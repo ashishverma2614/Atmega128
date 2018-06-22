@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OverflowInterrupt", "TimerCounter\OverflowInterrupt.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OutputCompareInterrupt", "OutputCompareInterrupt\OutputCompareInterrupt.cproj", "{07C23ED5-4084-47E9-937D-36A56C69FFF3}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OutputCompareInterrupt2", "OutputCompareInterrupt2\OutputCompareInterrupt2.cproj", "{9EB601A5-3010-4679-AD3B-7FFE5AE82941}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PulseOutput", "PulseOutput\PulseOutput.cproj", "{EBACE953-0E43-4814-A2A5-D5A1FF7D3B39}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PulseOutputCTC", "PulseOutputCTC\PulseOutputCTC.cproj", "{1CE8F296-80A0-474B-818E-A9C002F6A121}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ExternalOcillator", "ExternalOcillator\ExternalOcillator.cproj", "{C5D31421-1BED-4CA2-B8C3-C7ED0140A98B}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ServoMotor", "ServoMotor\ServoMotor.cproj", "{FFF678DB-6CEE-4490-9D0A-F0294BD5F3D1}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OVFBasic", "OVFBasic\OVFBasic.cproj", "{1EFBB2DE-EA38-43A4-8572-23863686C581}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{07C23ED5-4084-47E9-937D-36A56C69FFF3}.Debug|AVR.ActiveCfg = Debug|AVR
+		{07C23ED5-4084-47E9-937D-36A56C69FFF3}.Debug|AVR.Build.0 = Debug|AVR
+		{07C23ED5-4084-47E9-937D-36A56C69FFF3}.Release|AVR.ActiveCfg = Release|AVR
+		{07C23ED5-4084-47E9-937D-36A56C69FFF3}.Release|AVR.Build.0 = Release|AVR
+		{9EB601A5-3010-4679-AD3B-7FFE5AE82941}.Debug|AVR.ActiveCfg = Debug|AVR
+		{9EB601A5-3010-4679-AD3B-7FFE5AE82941}.Debug|AVR.Build.0 = Debug|AVR
+		{9EB601A5-3010-4679-AD3B-7FFE5AE82941}.Release|AVR.ActiveCfg = Release|AVR
+		{9EB601A5-3010-4679-AD3B-7FFE5AE82941}.Release|AVR.Build.0 = Release|AVR
+		{EBACE953-0E43-4814-A2A5-D5A1FF7D3B39}.Debug|AVR.ActiveCfg = Debug|AVR
+		{EBACE953-0E43-4814-A2A5-D5A1FF7D3B39}.Debug|AVR.Build.0 = Debug|AVR
+		{EBACE953-0E43-4814-A2A5-D5A1FF7D3B39}.Release|AVR.ActiveCfg = Release|AVR
+		{EBACE953-0E43-4814-A2A5-D5A1FF7D3B39}.Release|AVR.Build.0 = Release|AVR
+		{1CE8F296-80A0-474B-818E-A9C002F6A121}.Debug|AVR.ActiveCfg = Debug|AVR
+		{1CE8F296-80A0-474B-818E-A9C002F6A121}.Debug|AVR.Build.0 = Debug|AVR
+		{1CE8F296-80A0-474B-818E-A9C002F6A121}.Release|AVR.ActiveCfg = Release|AVR
+		{1CE8F296-80A0-474B-818E-A9C002F6A121}.Release|AVR.Build.0 = Release|AVR
+		{C5D31421-1BED-4CA2-B8C3-C7ED0140A98B}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C5D31421-1BED-4CA2-B8C3-C7ED0140A98B}.Debug|AVR.Build.0 = Debug|AVR
+		{C5D31421-1BED-4CA2-B8C3-C7ED0140A98B}.Release|AVR.ActiveCfg = Release|AVR
+		{C5D31421-1BED-4CA2-B8C3-C7ED0140A98B}.Release|AVR.Build.0 = Release|AVR
+		{FFF678DB-6CEE-4490-9D0A-F0294BD5F3D1}.Debug|AVR.ActiveCfg = Debug|AVR
+		{FFF678DB-6CEE-4490-9D0A-F0294BD5F3D1}.Debug|AVR.Build.0 = Debug|AVR
+		{FFF678DB-6CEE-4490-9D0A-F0294BD5F3D1}.Release|AVR.ActiveCfg = Release|AVR
+		{FFF678DB-6CEE-4490-9D0A-F0294BD5F3D1}.Release|AVR.Build.0 = Release|AVR
+		{1EFBB2DE-EA38-43A4-8572-23863686C581}.Debug|AVR.ActiveCfg = Debug|AVR
+		{1EFBB2DE-EA38-43A4-8572-23863686C581}.Debug|AVR.Build.0 = Debug|AVR
+		{1EFBB2DE-EA38-43A4-8572-23863686C581}.Release|AVR.ActiveCfg = Release|AVR
+		{1EFBB2DE-EA38-43A4-8572-23863686C581}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

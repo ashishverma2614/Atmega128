@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000054  00000000  00000000  00001454  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003d6  00000000  00000000  000014a8  2**0
+ 10 .debug_str    000003d4  00000000  00000000  000014a8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000063  00000000  00000000  0000187e  2**0
+ 11 .debug_loc    00000063  00000000  00000000  0000187c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000018  00000000  00000000  000018e1  2**0
+ 12 .debug_ranges 00000018  00000000  00000000  000018df  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -189,7 +189,7 @@ int main(void)
 	PORTB = 0x00; // initial led state: all off
  102:	18 ba       	out	0x18, r1	; 24
 
-	ASSR |= (1 << AS0);
+	ASSR |= (1 << AS0); // to user external oscillator
  104:	80 b7       	in	r24, 0x30	; 48
  106:	88 60       	ori	r24, 0x08	; 8
  108:	80 bf       	out	0x30, r24	; 48

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Debounce", "Debounce\Debounce.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Debounce2", "Debounce2\Debounce2.cproj", "{902DC41A-2698-4845-B5EA-A13A0529D881}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Debounce3", "Debounce3\Debounce3.cproj", "{8CC9C329-DCF8-4155-8CA9-9B6B8503F961}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{902DC41A-2698-4845-B5EA-A13A0529D881}.Debug|AVR.Build.0 = Debug|AVR
 		{902DC41A-2698-4845-B5EA-A13A0529D881}.Release|AVR.ActiveCfg = Release|AVR
 		{902DC41A-2698-4845-B5EA-A13A0529D881}.Release|AVR.Build.0 = Release|AVR
+		{8CC9C329-DCF8-4155-8CA9-9B6B8503F961}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8CC9C329-DCF8-4155-8CA9-9B6B8503F961}.Debug|AVR.Build.0 = Debug|AVR
+		{8CC9C329-DCF8-4155-8CA9-9B6B8503F961}.Release|AVR.ActiveCfg = Release|AVR
+		{8CC9C329-DCF8-4155-8CA9-9B6B8503F961}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

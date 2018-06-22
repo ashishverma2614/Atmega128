@@ -5,6 +5,14 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "OverflowINT", "16BitTimer\OverflowINT.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CompareMatchINT", "CompareMatchINT\CompareMatchINT.cproj", "{CC964A7A-5C07-4187-AAB3-AA0A4D8D8757}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MultipleCompareMatchINT", "MultipleCompareMatchINT\MultipleCompareMatchINT.cproj", "{E4049A12-508A-4F73-A1CD-1555AF900AF2}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "WaveOutput", "PWMOutput\WaveOutput.cproj", "{7496D8F8-8E29-4798-8D12-B88BD1948598}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Servo_16bitTimer", "Servo_16bitTimer\Servo_16bitTimer.cproj", "{575BF12E-EE68-44C8-9801-13DAEE38CE07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -15,6 +23,22 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{CC964A7A-5C07-4187-AAB3-AA0A4D8D8757}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CC964A7A-5C07-4187-AAB3-AA0A4D8D8757}.Debug|AVR.Build.0 = Debug|AVR
+		{CC964A7A-5C07-4187-AAB3-AA0A4D8D8757}.Release|AVR.ActiveCfg = Release|AVR
+		{CC964A7A-5C07-4187-AAB3-AA0A4D8D8757}.Release|AVR.Build.0 = Release|AVR
+		{E4049A12-508A-4F73-A1CD-1555AF900AF2}.Debug|AVR.ActiveCfg = Debug|AVR
+		{E4049A12-508A-4F73-A1CD-1555AF900AF2}.Debug|AVR.Build.0 = Debug|AVR
+		{E4049A12-508A-4F73-A1CD-1555AF900AF2}.Release|AVR.ActiveCfg = Release|AVR
+		{E4049A12-508A-4F73-A1CD-1555AF900AF2}.Release|AVR.Build.0 = Release|AVR
+		{7496D8F8-8E29-4798-8D12-B88BD1948598}.Debug|AVR.ActiveCfg = Debug|AVR
+		{7496D8F8-8E29-4798-8D12-B88BD1948598}.Debug|AVR.Build.0 = Debug|AVR
+		{7496D8F8-8E29-4798-8D12-B88BD1948598}.Release|AVR.ActiveCfg = Release|AVR
+		{7496D8F8-8E29-4798-8D12-B88BD1948598}.Release|AVR.Build.0 = Release|AVR
+		{575BF12E-EE68-44C8-9801-13DAEE38CE07}.Debug|AVR.ActiveCfg = Debug|AVR
+		{575BF12E-EE68-44C8-9801-13DAEE38CE07}.Debug|AVR.Build.0 = Debug|AVR
+		{575BF12E-EE68-44C8-9801-13DAEE38CE07}.Release|AVR.ActiveCfg = Release|AVR
+		{575BF12E-EE68-44C8-9801-13DAEE38CE07}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,297 @@
+
+UART.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000004  00800100  0000017a  000001ee  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000017a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000001f2  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000224  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000048  00000000  00000000  00000264  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000096b  00000000  00000000  000002ac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000844  00000000  00000000  00000c17  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000319  00000000  00000000  0000145b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000b8  00000000  00000000  00001774  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003f5  00000000  00000000  0000182c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000001eb  00000000  00000000  00001c21  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000038  00000000  00000000  00001e0c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	45 c0       	rjmp	.+138    	; 0x8c <__ctors_end>
+   2:	00 00       	nop
+   4:	58 c0       	rjmp	.+176    	; 0xb6 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	56 c0       	rjmp	.+172    	; 0xb6 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	54 c0       	rjmp	.+168    	; 0xb6 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	52 c0       	rjmp	.+164    	; 0xb6 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	50 c0       	rjmp	.+160    	; 0xb6 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	4e c0       	rjmp	.+156    	; 0xb6 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	4c c0       	rjmp	.+152    	; 0xb6 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	4a c0       	rjmp	.+148    	; 0xb6 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	48 c0       	rjmp	.+144    	; 0xb6 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	46 c0       	rjmp	.+140    	; 0xb6 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	44 c0       	rjmp	.+136    	; 0xb6 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	42 c0       	rjmp	.+132    	; 0xb6 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	40 c0       	rjmp	.+128    	; 0xb6 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	3e c0       	rjmp	.+124    	; 0xb6 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	3c c0       	rjmp	.+120    	; 0xb6 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	3a c0       	rjmp	.+116    	; 0xb6 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	38 c0       	rjmp	.+112    	; 0xb6 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	36 c0       	rjmp	.+108    	; 0xb6 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	34 c0       	rjmp	.+104    	; 0xb6 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	32 c0       	rjmp	.+100    	; 0xb6 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	30 c0       	rjmp	.+96     	; 0xb6 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	2e c0       	rjmp	.+92     	; 0xb6 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	2c c0       	rjmp	.+88     	; 0xb6 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	2a c0       	rjmp	.+84     	; 0xb6 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	28 c0       	rjmp	.+80     	; 0xb6 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	26 c0       	rjmp	.+76     	; 0xb6 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	24 c0       	rjmp	.+72     	; 0xb6 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	22 c0       	rjmp	.+68     	; 0xb6 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	20 c0       	rjmp	.+64     	; 0xb6 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	1e c0       	rjmp	.+60     	; 0xb6 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	1c c0       	rjmp	.+56     	; 0xb6 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	1a c0       	rjmp	.+52     	; 0xb6 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	18 c0       	rjmp	.+48     	; 0xb6 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	16 c0       	rjmp	.+44     	; 0xb6 <__bad_interrupt>
+	...
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e1       	ldi	r29, 0x10	; 16
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+  98:	11 e0       	ldi	r17, 0x01	; 1
+  9a:	a0 e0       	ldi	r26, 0x00	; 0
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	ea e7       	ldi	r30, 0x7A	; 122
+  a0:	f1 e0       	ldi	r31, 0x01	; 1
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+  a4:	0b bf       	out	0x3b, r16	; 59
+  a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+  a8:	07 90       	elpm	r0, Z+
+  aa:	0d 92       	st	X+, r0
+  ac:	a4 30       	cpi	r26, 0x04	; 4
+  ae:	b1 07       	cpc	r27, r17
+  b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+  b2:	48 d0       	rcall	.+144    	; 0x144 <main>
+  b4:	60 c0       	rjmp	.+192    	; 0x176 <_exit>
+
+000000b6 <__bad_interrupt>:
+  b6:	a4 cf       	rjmp	.-184    	; 0x0 <__vectors>
+
+000000b8 <UART_Putch>:
+char UART_IsGetCh(void) // check if a character is received or not
+{
+	if (UCSR0A & 0x80)
+		return 1;
+	return 0;
+}
+  b8:	5d 9b       	sbis	0x0b, 5	; 11
+  ba:	fe cf       	rjmp	.-4      	; 0xb8 <UART_Putch>
+  bc:	8c b9       	out	0x0c, r24	; 12
+  be:	08 95       	ret
+
+000000c0 <UART_Getch>:
+  c0:	5f 9b       	sbis	0x0b, 7	; 11
+  c2:	fe cf       	rjmp	.-4      	; 0xc0 <UART_Getch>
+  c4:	8c b1       	in	r24, 0x0c	; 12
+  c6:	08 95       	ret
+
+000000c8 <UART_Puts>:
+
+void UART_Puts(char * str) // print string
+{
+  c8:	cf 93       	push	r28
+  ca:	df 93       	push	r29
+  cc:	ec 01       	movw	r28, r24
+	int i = 0;
+	while(str[i] != 0) // until encountering null character
+  ce:	88 81       	ld	r24, Y
+  d0:	88 23       	and	r24, r24
+  d2:	29 f0       	breq	.+10     	; 0xde <UART_Puts+0x16>
+  d4:	21 96       	adiw	r28, 0x01	; 1
+	// store each character into str[]
+	{
+		UART_Putch(str[i++]);
+  d6:	f0 df       	rcall	.-32     	; 0xb8 <UART_Putch>
+}
+
+void UART_Puts(char * str) // print string
+{
+	int i = 0;
+	while(str[i] != 0) // until encountering null character
+  d8:	89 91       	ld	r24, Y+
+  da:	81 11       	cpse	r24, r1
+  dc:	fc cf       	rjmp	.-8      	; 0xd6 <UART_Puts+0xe>
+	// store each character into str[]
+	{
+		UART_Putch(str[i++]);
+	}
+}
+  de:	df 91       	pop	r29
+  e0:	cf 91       	pop	r28
+  e2:	08 95       	ret
+
+000000e4 <UART_Gets>:
+
+void UART_Gets(char * str) // to receive string character
+{
+  e4:	cf 92       	push	r12
+  e6:	df 92       	push	r13
+  e8:	ef 92       	push	r14
+  ea:	ff 92       	push	r15
+  ec:	0f 93       	push	r16
+  ee:	1f 93       	push	r17
+  f0:	cf 93       	push	r28
+  f2:	df 93       	push	r29
+  f4:	7c 01       	movw	r14, r24
+  f6:	ec 01       	movw	r28, r24
+	int i = 0;
+  f8:	00 e0       	ldi	r16, 0x00	; 0
+  fa:	10 e0       	ldi	r17, 0x00	; 0
+	do
+	{
+		str[i] = UART_Getch();
+  fc:	e1 df       	rcall	.-62     	; 0xc0 <UART_Getch>
+  fe:	88 83       	st	Y, r24
+		UART_Putch(str[i]); // echo to reflect
+ 100:	db df       	rcall	.-74     	; 0xb8 <UART_Putch>
+ 102:	68 01       	movw	r12, r16
+ 104:	8f ef       	ldi	r24, 0xFF	; 255
+ 106:	c8 1a       	sub	r12, r24
+ 108:	d8 0a       	sbc	r13, r24
+ 10a:	98 81       	ld	r25, Y
+	} while(str[i++] != '\r' && str[i++] != '\n');
+ 10c:	9d 30       	cpi	r25, 0x0D	; 13
+ 10e:	49 f0       	breq	.+18     	; 0x122 <UART_Gets+0x3e>
+ 110:	0e 5f       	subi	r16, 0xFE	; 254
+ 112:	1f 4f       	sbci	r17, 0xFF	; 255
+ 114:	22 96       	adiw	r28, 0x02	; 2
+ 116:	fe 01       	movw	r30, r28
+ 118:	31 97       	sbiw	r30, 0x01	; 1
+ 11a:	80 81       	ld	r24, Z
+ 11c:	8a 30       	cpi	r24, 0x0A	; 10
+ 11e:	71 f7       	brne	.-36     	; 0xfc <UART_Gets+0x18>
+ 120:	68 01       	movw	r12, r16
+ 122:	80 e0       	ldi	r24, 0x00	; 0
+	UART_Puts("\r\n"); // move cursor to the end of string character
+ 124:	91 e0       	ldi	r25, 0x01	; 1
+ 126:	d0 df       	rcall	.-96     	; 0xc8 <UART_Puts>
+ 128:	ec 0c       	add	r14, r12
+	str[i - 1] = 0; // add NULL char in the '\r' position to avoid moving cursor to the first
+ 12a:	fd 1c       	adc	r15, r13
+ 12c:	f7 01       	movw	r30, r14
+ 12e:	31 97       	sbiw	r30, 0x01	; 1
+ 130:	10 82       	st	Z, r1
+ 132:	df 91       	pop	r29
+}
+ 134:	cf 91       	pop	r28
+ 136:	1f 91       	pop	r17
+ 138:	0f 91       	pop	r16
+ 13a:	ff 90       	pop	r15
+ 13c:	ef 90       	pop	r14
+ 13e:	df 90       	pop	r13
+ 140:	cf 90       	pop	r12
+ 142:	08 95       	ret
+
+00000144 <main>:
+ 144:	cf 93       	push	r28
+#include <util/delay.h>
+#include <avr/interrupt.h>
+#include "UART_FUNC.h"
+
+int main(void)
+{
+ 146:	df 93       	push	r29
+ 148:	cd b7       	in	r28, 0x3d	; 61
+ 14a:	de b7       	in	r29, 0x3e	; 62
+ 14c:	c4 56       	subi	r28, 0x64	; 100
+ 14e:	d1 09       	sbc	r29, r1
+ 150:	0f b6       	in	r0, 0x3f	; 63
+ 152:	f8 94       	cli
+ 154:	de bf       	out	0x3e, r29	; 62
+ 156:	0f be       	out	0x3f, r0	; 63
+ 158:	cd bf       	out	0x3d, r28	; 61
+	// char ch;
+	char str[100];
+    
+    UCSR0B = 0x18; //0b0001_1000 , RX/TX enable
+ 15a:	88 e1       	ldi	r24, 0x18	; 24
+ 15c:	8a b9       	out	0x0a, r24	; 10
+    UCSR0C = 0x06; // 0b0000_0110, USCZ01, USCZ00 -> 8 bit(전송비트수 결정)
+ 15e:	86 e0       	ldi	r24, 0x06	; 6
+ 160:	80 93 95 00 	sts	0x0095, r24	; 0x800095 <__TEXT_REGION_LENGTH__+0x7e0095>
+    UBRR0L = 103; // 9600 Baud Rate set, Async(+0.2%)
+ 164:	87 e6       	ldi	r24, 0x67	; 103
+ 166:	89 b9       	out	0x09, r24	; 9
+    //UART_Putch('T');
+
+    while(1){
+	    
+	    //UART_Putch(UART_Getch());
+		UART_Gets(str);
+ 168:	ce 01       	movw	r24, r28
+ 16a:	01 96       	adiw	r24, 0x01	; 1
+ 16c:	bb df       	rcall	.-138    	; 0xe4 <UART_Gets>
+		UART_Puts(str);
+ 16e:	ce 01       	movw	r24, r28
+ 170:	01 96       	adiw	r24, 0x01	; 1
+ 172:	aa df       	rcall	.-172    	; 0xc8 <UART_Puts>
+ 174:	f9 cf       	rjmp	.-14     	; 0x168 <main+0x24>
+
+00000176 <_exit>:
+ 176:	f8 94       	cli
+
+00000178 <__stop_program>:
+ 178:	ff cf       	rjmp	.-2      	; 0x178 <__stop_program>

@@ -14,27 +14,26 @@ unsigned char dir = 0; // 정지상태
 ISR(TIMER0_OVF_vect)
 {
 	++cnt;
-	if (cnt == 1000)
+	if (cnt == 10) // 10 ~ 30
 	{
 		cnt = 0; //카운트 리셋
 		EIMSK = 0x0C; // 인터럽트를 살린다
 		TCCR0 = 0x00; // 타이머 인터럽트 정지
+		EIFR = 0x01; //혹시 중간에 들어올 인터럽트를 위해 지워둔다
 	}
 }
 
 ISR(INT2_vect) // move from LSB to MSB
 {
-	dir = 1; // 우측이동
 	char rightPattern = (ledPattern >> 1) | (ledPattern << 7);
 	ledPattern = rightPattern;
 
-	TCCR0 = 0x01;
-	TCNT0 = 0;
-	EIMSK = 0;
+	TCCR0 = 0x01; //타이머 인터럽트를 다시 켠다(일정시간 지연을 위해)
+	TCNT0 = 0; // 타이머 인터럽트의 초기화(처음부터 센다)
+	EIMSK = 0; // 외부 인터럽트를 잠시 중단한다(타이머 인터럽트가 돌아가는 시간만큼)
 }
-ISR(INT3_vect)
+ISR(INT3_vect) // move from MSB to LSB
 {
-	dir = 2;
 	char leftPattern = (ledPattern << 1) | (ledPattern >> 7);
 	ledPattern = leftPattern;
 	TCCR0 = 0x01;
