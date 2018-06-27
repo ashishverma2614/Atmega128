@@ -144,7 +144,7 @@ ISR(TIMER0_OVF_vect)
   b4:	0f 92       	push	r0
   b6:	11 24       	eor	r1, r1
   b8:	8f 93       	push	r24
-	count++; // max = 256
+	count++; // max = 125, total 126cnt
   ba:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
   be:	8f 5f       	subi	r24, 0xFF	; 255
   c0:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
@@ -162,13 +162,13 @@ ISR(TIMER0_OVF_vect)
   d0:	21 f0       	breq	.+8      	; 0xda <__vector_16+0x2c>
   d2:	04 c0       	rjmp	.+8      	; 0xdc <__vector_16+0x2e>
 		{
-			case 0:
+			case 0x00: // PINB = 0x00, all off
 				PORTB = 0xFF;
   d4:	8f ef       	ldi	r24, 0xFF	; 255
   d6:	88 bb       	out	0x18, r24	; 24
 				break;
   d8:	01 c0       	rjmp	.+2      	; 0xdc <__vector_16+0x2e>
-			case 255:
+			case 0xFF: // PINB = 0xFF, all on
 				PORTB = 0x00;
   da:	18 ba       	out	0x18, r1	; 24
 				break;
@@ -176,7 +176,7 @@ ISR(TIMER0_OVF_vect)
 		count = 0; // reset counter
   dc:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
 	}
-	TCNT0 = 131; // reset TCNT0 
+	TCNT0 = 131; // enforce to reset TCNT0, which means to adjust the value of start 
   e0:	83 e8       	ldi	r24, 0x83	; 131
   e2:	82 bf       	out	0x32, r24	; 50
 				// 255 - 131  + 1 = 125
@@ -189,11 +189,11 @@ ISR(TIMER0_OVF_vect)
   ee:	18 95       	reti
 
 000000f0 <INIT>:
-	{ /* nothing to repeat */ } return 0;
 }
 
 void INIT(void)
 {
+	/* Port Setting */
 	cbi(SREG, 7); // same as cli(), all INT disabled
   f0:	8f b7       	in	r24, 0x3f	; 63
   f2:	8f 77       	andi	r24, 0x7F	; 127
@@ -203,7 +203,9 @@ void INIT(void)
   f8:	88 bb       	out	0x18, r24	; 24
 	DDRB = 0xFF; // turn on all LED at first
   fa:	87 bb       	out	0x17, r24	; 23
-	TCCR0 = (1 << CS02) | (1 << CS01) | (1 << CS00); // set Timer Counter Control Reg., pre-scale: 1024
+
+	/* Timer Setting  */
+	TCCR0 = (1 << CS02) | (1 << CS01) | (1 << CS00); // set Timer Counter Control Reg., pre-scale: 1024(approx. 64us)
   fc:	87 e0       	ldi	r24, 0x07	; 7
   fe:	83 bf       	out	0x33, r24	; 51
 	//TCCR0 = 0x07;

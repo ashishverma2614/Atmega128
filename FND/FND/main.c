@@ -1,9 +1,3 @@
-/*
- * FND.c
- *
- * Created: 2018-06-01 오후 1:00:42
- * Author : Woo
- */ 
 #define F_CPU 16000000L
 #include <avr/io.h>
 #include <util/delay.h>

@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "FND", "FND\FND.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "FNDSetControl", "FNDSetControl\FNDSetControl.cproj", "{D6C57566-21EE-4E88-AAFB-B203F8D17AFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CEE12BE-AF29-4AEC-8ED5-3164A2C5A0C9}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "FND_DynamicControl", "FND_DynamicControl\FND_DynamicControl.cproj", "{E936961C-8727-47CE-9933-46EB5C75F79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,14 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{D6C57566-21EE-4E88-AAFB-B203F8D17AFE}.Debug|AVR.ActiveCfg = Debug|AVR
+		{D6C57566-21EE-4E88-AAFB-B203F8D17AFE}.Debug|AVR.Build.0 = Debug|AVR
+		{D6C57566-21EE-4E88-AAFB-B203F8D17AFE}.Release|AVR.ActiveCfg = Release|AVR
+		{D6C57566-21EE-4E88-AAFB-B203F8D17AFE}.Release|AVR.Build.0 = Release|AVR
+		{E936961C-8727-47CE-9933-46EB5C75F79A}.Debug|AVR.ActiveCfg = Debug|AVR
+		{E936961C-8727-47CE-9933-46EB5C75F79A}.Debug|AVR.Build.0 = Debug|AVR
+		{E936961C-8727-47CE-9933-46EB5C75F79A}.Release|AVR.ActiveCfg = Release|AVR
+		{E936961C-8727-47CE-9933-46EB5C75F79A}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

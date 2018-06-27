@@ -12,6 +12,7 @@
 
 unsigned int cnt= 0; // counter set to measure time
 unsigned char ledState = 0; // 0 is off, 1 is on
+void INIT();
 
 ISR(TIMER0_OVF_vect) // ISR of 8bit timer0
 {
@@ -24,22 +25,36 @@ ISR(TIMER0_OVF_vect) // ISR of 8bit timer0
 	}
 }
 
+
+
 int main(void)
 {
+	/*
 	DDRB = 0xFF; // set portB as output
 	PORTB = 0x00; // initial state: port off
 
 	// set pre-sale as 1024(CS02, CS01, CS00: 1 1 1)
+	//, which make internal clk slower 1/1024
 	TCCR0 |= (1 << CS02) | (1 << CS01) | (1 << CS00);
 
 	TIMSK |= (1 << TOIE0); // allow overflow interrupt
 	SREG |= 0x80; // global interrupt enable
-
+	*/
+	INIT();
 	while(1)
 	{
 		// nothing to repeat
 		// regardless of while loop, due to time overflow, 
 		// bliking on and off led occurs periodically
 	}
-	return 0; // C convention
+	return 0;
+}
+void INIT(void)
+{
+	DDRB = 0xFF;
+	PORTB = 0x00;
+
+	TCCR0 = 0x07; // pre-scale 1024
+	TIMSK = 0x01;
+	SREG = 0x80;
 }

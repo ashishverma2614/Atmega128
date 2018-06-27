@@ -440,10 +440,10 @@ END GROUP
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_abbrev  0x00000718       0xf7 main.o
 
-.debug_line     0x00000000      0x2a3
+.debug_line     0x00000000      0x2a1
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x169 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x00000169      0x13a main.o
+ .debug_line    0x00000169      0x138 main.o
 
 .debug_frame    0x00000000       0x34
  *(.debug_frame)
