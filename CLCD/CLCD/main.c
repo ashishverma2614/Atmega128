@@ -20,7 +20,7 @@ void LCD_CMD_Write(char cmd)
 	PORTF = 0x00; // RS = (instruction write mode), R/W = 0(write), E = 0;
 	_delay_us(1);
 	PORTF ^= 0x04; // toggle E1 as 1
-	PORTD = cmd; // send CMD param
+	PORTD = cmd; // send CMD
 	_delay_us(1);
 	PORTF ^= 0x04; // toggle E1 as 0
 	_delay_ms(5);
@@ -31,19 +31,19 @@ void LCD_Data_Write(char data)
 	PORTF = 0x01; // RS = (data write mode), R/W = 0(write), E = 0;
 	_delay_us(1);
 	PORTF ^= 0x04; // toggle E1 as 1
-	PORTD = data; // send CMD param
+	PORTD = data; // send CMD
 	_delay_us(1);
 	PORTF ^= 0x04; // toggle E1 as 0
 	_delay_ms(5);
 }
 
-void LCD_SetXY(char x, char y)
+void LCD_SetXY(char x, char y) // set coordinate of cursor(x-axis, y-axis)
 {
 	if (y == 0) LCD_CMD_Write(0x80 + x);
 	else if(y == 1) LCD_CMD_Write(0xC0 + y);
 }
 
-void LCD_PutString(char * str)
+void LCD_PutString(const char * str) // const for preventing data corruption
 {
 	while (*str != '\0') 
 	{
@@ -78,8 +78,8 @@ int main(void)
 {
 	DDRD = 0xFF; PORTD = 0xFF;
 	DDRF = 0xFF; PORTF = 0x00;
-	char str1[] = "Hello World";
-	char str2[] = "Bonjour";
+	char * str1 = "Hello World";
+	char  * str2 = "Good Morning";
 	
 	LCD_INIT();
 	LCD_SetXY(0, 0);
