@@ -385,20 +385,20 @@ END GROUP
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
  .debug_abbrev  0x00000718      0x123 main.o
 
-.debug_line     0x00000000      0x2cd
+.debug_line     0x00000000      0x2cf
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x169 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x00000169      0x164 main.o
+ .debug_line    0x00000169      0x166 main.o
 
 .debug_frame    0x00000000       0x44
  *(.debug_frame)
  .debug_frame   0x00000000       0x44 main.o
 
-.debug_str      0x00000000      0x421
+.debug_str      0x00000000      0x41f
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_str     0x0000027d      0x1a4 main.o
-                                0x1d8 (size before relaxing)
+ .debug_str     0x0000027d      0x1a2 main.o
+                                0x1d6 (size before relaxing)
 
 .debug_loc      0x00000000       0x26
  *(.debug_loc)

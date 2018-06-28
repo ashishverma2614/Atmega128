@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000070  00000000  00000000  00001780  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000043b  00000000  00000000  000017f0  2**0
+  9 .debug_str    00000439  00000000  00000000  000017f0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000000d1  00000000  00000000  00001c2b  2**0
+ 10 .debug_loc    000000d1  00000000  00000000  00001c29  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000028  00000000  00000000  00001cfc  2**0
+ 11 .debug_ranges 00000028  00000000  00000000  00001cfa  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -136,14 +136,14 @@ Disassembly of section .text:
 
 void USART0_INIT(unsigned int ubrr0) // 8bit, no-parity, 1 stop-bit, TX-enable
 {
-	UBRR0H = (unsigned char)(ubrr0 >> 8);
+	UBRR0H = (unsigned char)(ubrr0 >> 8); // truncate upper 8 bits
   b8:	90 93 90 00 	sts	0x0090, r25	; 0x800090 <__TEXT_REGION_LENGTH__+0x7e0090>
-	UBRR0L = (unsigned char)(ubrr0);
+	UBRR0L = (unsigned char)(ubrr0); // truncate lower 8 bits
   bc:	89 b9       	out	0x09, r24	; 9
-	UCSR0B = (1 << TXEN0);
+	UCSR0B = (1 << TXEN0); // TX0 enable
   be:	88 e0       	ldi	r24, 0x08	; 8
   c0:	8a b9       	out	0x0a, r24	; 10
-	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // 8bit
+	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // 8bit unit transmit
   c2:	86 e0       	ldi	r24, 0x06	; 6
   c4:	80 93 95 00 	sts	0x0095, r24	; 0x800095 <__TEXT_REGION_LENGTH__+0x7e0095>
   c8:	08 95       	ret
@@ -210,7 +210,7 @@ int main(void)
   fc:	de bf       	out	0x3e, r29	; 62
   fe:	0f be       	out	0x3f, r0	; 63
  100:	cd bf       	out	0x3d, r28	; 61
-	const unsigned char str1[] = "Hello World\r\n";
+	const unsigned char str1[] = "Hello World\r\n"; // to circumvent data corruption, append "const"
  102:	8e e0       	ldi	r24, 0x0E	; 14
  104:	e0 e0       	ldi	r30, 0x00	; 0
  106:	f1 e0       	ldi	r31, 0x01	; 1
