@@ -13,6 +13,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UART0_Library_Test", "UART0
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Receive_VariableString", "Receive_VariableString\Receive_VariableString.cproj", "{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PrintScanF", "PrintScanF\PrintScanF.cproj", "{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -39,6 +41,10 @@ Global
 		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Debug|AVR.Build.0 = Debug|AVR
 		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Release|AVR.ActiveCfg = Release|AVR
 		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Release|AVR.Build.0 = Release|AVR
+		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Debug|AVR.ActiveCfg = Debug|AVR
+		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Debug|AVR.Build.0 = Debug|AVR
+		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Release|AVR.ActiveCfg = Release|AVR
+		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

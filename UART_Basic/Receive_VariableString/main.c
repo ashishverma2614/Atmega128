@@ -1,3 +1,8 @@
+/* This is the pratice to test variable cmd(UP / DOWN) received via
+ * UART0 RX scheme. For exception handling, when an user pressed wrong cmd,
+ * append peripheral if-else statement to tackle this unexpected pitfall. 
+*/
+
 #define F_CPU 16000000L
 #define TERMINATOR '\r'
 #include <avr/io.h>
@@ -9,10 +14,10 @@
 int main(void)
 {
     unit8_t counter = 100; // counter
-	int index = 0; // location of receiving buf
-	int process_data = 0; // flag for commanding string process: 1 for process string
-	char buf[20] = ""; // RX data buf
-	char data; // RX data
+	int index = 0; // index of buf array
+	int isProcessData = 0; // flag for commanding string process: 1 for process string
+	char buf[20] = ""; // RX data buf to store the contents in the UDR0
+	char data; // RX one char data
 
 	UART0_init(); // INIT
 
@@ -29,22 +34,22 @@ int main(void)
 		data = UART0_receive(); // receive data
 		
 		// check line end
-		if (data == TERMINATOR)
+		if (data == TERMINATOR) // if meeting CR
 		{
 			buf[index] = '\0'; // append null to the end
-			process_data = 1; // completion of receiving string with null
+			isProcessData = 1; // completion of receiving string with null
 		}
 		else
 		{
 			buf[index] = data; // write data to the receive buf
 			index++; // increment of index
-			//process_data = 0;
+			//isProcessData = 0
 		}
 
 		// process string
-		if (process_data == 1)
+		if (isProcessData == 1)
 		{
-			if(strcmp(buf, "DOWN") == 0)
+			if(strcmp(buf, "DOWN") == 0) // compare cmd with buf contents. true returns 0
 			{
 				counter--;
 				UART0_print_string("Current Counter Value : ");
@@ -64,13 +69,10 @@ int main(void)
 				UART0_print_string("\r\n");
 			}
 			// end of processing string data
-			// recover original state
+			// restore original state for repetition
 			index = 0;
-			process_data = 0;
+			isProcessData = 0;
 		}
-
-
-
     }
 }
 

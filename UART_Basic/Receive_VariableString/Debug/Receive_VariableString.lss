@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  000000ec  00000000  00000000  00002394  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000047e  00000000  00000000  00002480  2**0
+  9 .debug_str    00000484  00000000  00000000  00002480  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000002f1  00000000  00000000  000028fe  2**0
+ 10 .debug_loc    000002f1  00000000  00000000  00002904  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000048  00000000  00000000  00002bef  2**0
+ 11 .debug_ranges 00000048  00000000  00000000  00002bf5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -148,9 +148,9 @@ int main(void)
   c8:	0f be       	out	0x3f, r0	; 63
   ca:	cd bf       	out	0x3d, r28	; 61
     unit8_t counter = 100; // counter
-	int index = 0; // location of receiving buf
-	int process_data = 0; // flag for commanding string process: 1 for process string
-	char buf[20] = ""; // RX data buf
+	int index = 0; // index of buf array
+	int isProcessData = 0; // flag for commanding string process: 1 for process string
+	char buf[20] = ""; // RX data buf to store the contents in the UDR0
   cc:	1a 82       	std	Y+2, r1	; 0x02
   ce:	19 82       	std	Y+1, r1	; 0x01
   d0:	fe 01       	movw	r30, r28
@@ -160,7 +160,7 @@ int main(void)
   d8:	1d 92       	st	X+, r1
   da:	8a 95       	dec	r24
   dc:	e9 f7       	brne	.-6      	; 0xd8 <main+0x20>
-	char data; // RX data
+	char data; // RX one char data
 
 	UART0_init(); // INIT
   de:	51 d0       	rcall	.+162    	; 0x182 <UART0_init>
@@ -211,7 +211,7 @@ int main(void)
  110:	8d 30       	cpi	r24, 0x0D	; 13
 		
 		// check line end
-		if (data == TERMINATOR)
+		if (data == TERMINATOR) // if meeting CR
  112:	79 f4       	brne	.+30     	; 0x132 <main+0x7a>
  114:	e1 e0       	ldi	r30, 0x01	; 1
 		{
@@ -225,9 +225,9 @@ int main(void)
 		}
 
 		// process string
-		if (process_data == 1)
+		if (isProcessData == 1)
 		{
-			if(strcmp(buf, "DOWN") == 0)
+			if(strcmp(buf, "DOWN") == 0) // compare cmd with buf contents. true returns 0
  122:	62 e4       	ldi	r22, 0x42	; 66
  124:	71 e0       	ldi	r23, 0x01	; 1
  126:	ce 01       	movw	r24, r28
@@ -238,7 +238,7 @@ int main(void)
  130:	06 c0       	rjmp	.+12     	; 0x13e <main+0x86>
  132:	d7 01       	movw	r26, r14
 			buf[index] = '\0'; // append null to the end
-			process_data = 1; // completion of receiving string with null
+			isProcessData = 1; // completion of receiving string with null
 		}
 		else
 		{
@@ -248,9 +248,9 @@ int main(void)
 			index++; // increment of index
  138:	0f 5f       	subi	r16, 0xFF	; 255
  13a:	1f 4f       	sbci	r17, 0xFF	; 255
-		if (process_data == 1)
+		if (isProcessData == 1)
 		{
-			if(strcmp(buf, "DOWN") == 0)
+			if(strcmp(buf, "DOWN") == 0) // compare cmd with buf contents. true returns 0
 			{
 				counter--;
 				UART0_print_string("Current Counter Value : ");
