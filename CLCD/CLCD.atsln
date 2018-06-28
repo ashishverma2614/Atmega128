@@ -7,6 +7,12 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD", "CLCD\CLCD.cproj", "
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD4bit", "CLCD4bit\CLCD4bit.cproj", "{683DEAB9-BA46-4221-A011-999DF2DFE612}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD4bit_Shift", "CLCD4bit_Shift\CLCD4bit_Shift.cproj", "{AA6E6A8A-644C-49DA-9E5A-6E6BD824AD2A}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD4bit_Shift2", "CLCD4bit_Shift2\CLCD4bit_Shift2.cproj", "{6CF8FF07-121E-44D4-8EAC-F61E7575D3AC}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UserDefinedCharater", "UserDefinedCharater\UserDefinedCharater.cproj", "{B65A7EB8-12DC-4FC7-842A-E7059E818E79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -21,6 +27,18 @@ Global
 		{683DEAB9-BA46-4221-A011-999DF2DFE612}.Debug|AVR.Build.0 = Debug|AVR
 		{683DEAB9-BA46-4221-A011-999DF2DFE612}.Release|AVR.ActiveCfg = Release|AVR
 		{683DEAB9-BA46-4221-A011-999DF2DFE612}.Release|AVR.Build.0 = Release|AVR
+		{AA6E6A8A-644C-49DA-9E5A-6E6BD824AD2A}.Debug|AVR.ActiveCfg = Debug|AVR
+		{AA6E6A8A-644C-49DA-9E5A-6E6BD824AD2A}.Debug|AVR.Build.0 = Debug|AVR
+		{AA6E6A8A-644C-49DA-9E5A-6E6BD824AD2A}.Release|AVR.ActiveCfg = Release|AVR
+		{AA6E6A8A-644C-49DA-9E5A-6E6BD824AD2A}.Release|AVR.Build.0 = Release|AVR
+		{6CF8FF07-121E-44D4-8EAC-F61E7575D3AC}.Debug|AVR.ActiveCfg = Debug|AVR
+		{6CF8FF07-121E-44D4-8EAC-F61E7575D3AC}.Debug|AVR.Build.0 = Debug|AVR
+		{6CF8FF07-121E-44D4-8EAC-F61E7575D3AC}.Release|AVR.ActiveCfg = Release|AVR
+		{6CF8FF07-121E-44D4-8EAC-F61E7575D3AC}.Release|AVR.Build.0 = Release|AVR
+		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Debug|AVR.ActiveCfg = Debug|AVR
+		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Debug|AVR.Build.0 = Debug|AVR
+		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Release|AVR.ActiveCfg = Release|AVR
+		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

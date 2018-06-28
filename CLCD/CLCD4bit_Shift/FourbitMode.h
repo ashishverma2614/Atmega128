@@ -1,10 +1,5 @@
-/* This is the exmple to use 4bit mode LCD writing.
- * In 4-bit mode, open DB[4:0] terminal(NC)
-*/
-
-#define F_CPU 16000000UL
-#include <avr/io.h>
-#include <util/delay.h>
+﻿#ifndef 4BITMODE_H_
+#define 4BITMODE_H_
 
 typedef unsigned char u_char;
 /**************************************************************/
@@ -15,32 +10,26 @@ typedef unsigned char u_char;
 #define LINE2 0XC0 // move to 2ed line
 #define ENH PORTC |= 0x04 // enable HIGH
 #define ENL PORTC &= 0xFB // enable Low
+#define HOME 0X02 // move cursor home
+#define RSHIFT 0x1C // display right shift
+#define DISPOFF 0x80 // Display off
 /**************************************************************/
 // function prototypes
 
 void LCD_INIT(void); // setting
 void Disp_String(const char * str); // display string
 void Busy(void); // 2ms delay
-void CMD(u_char); // to get command	
+void CMD(u_char); // to get command
 void Send_Data(u_char); // send character to the LCD
 /**************************************************************/
 
 
-int main(void)
-{
-	LCD_INIT(); // initialization
-	Disp_String("Hello World!");// print at first line(Write Mode)
-	CMD(LINE2); // move to the 2ed line(Instruction Mode)
-	Disp_String("I love you");
-}
 
-/**************************************************************/
-/**************************************************************/
-
+// function implementations
 void LCD_INIT(void) // refer to the data sheet
 {
 	DDRC = 0xFF;
-	PORTC = 0x00; 
+	PORTC = 0x00;
 	_delay_ms(15);
 	CMD(0x20);
 	_delay_ms(5);
@@ -112,3 +101,8 @@ void Busy(void)
 {
 	_delay_ms(2);
 }
+
+
+
+
+#endif /* 4BITMODE_H_ */

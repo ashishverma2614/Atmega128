@@ -133,7 +133,7 @@ Disassembly of section .text:
 000000b8 <LCD_CMD_Write>:
 }
 
-void LCD_SetXY(char x, char y)
+void LCD_SetXY(char x, char y) // set coordinate of cursor(x-axis, y-axis)
 {
 	if (y == 0) LCD_CMD_Write(0x80 + x);
 	else if(y == 1) LCD_CMD_Write(0xC0 + y);
@@ -196,7 +196,7 @@ void LCD_SetXY(char x, char y)
 00000122 <LCD_PutString>:
 }
 
-void LCD_PutString(const char * str)
+void LCD_PutString(const char * str) // const for preventing data corruption
 {
  122:	cf 93       	push	r28
  124:	df 93       	push	r29
@@ -212,7 +212,7 @@ void LCD_PutString(const char * str)
 	else if(y == 1) LCD_CMD_Write(0xC0 + y);
 }
 
-void LCD_PutString(const char * str)
+void LCD_PutString(const char * str) // const for preventing data corruption
 {
 	while (*str != '\0') 
  132:	89 91       	ld	r24, Y+
@@ -309,7 +309,7 @@ int main(void)
 	_delay_ms(5);
 }
 
-void LCD_SetXY(char x, char y)
+void LCD_SetXY(char x, char y) // set coordinate of cursor(x-axis, y-axis)
 {
 	if (y == 0) LCD_CMD_Write(0x80 + x);
  196:	80 e8       	ldi	r24, 0x80	; 128
@@ -324,7 +324,7 @@ void LCD_SetXY(char x, char y)
  19c:	91 e0       	ldi	r25, 0x01	; 1
 }
 
-void LCD_SetXY(char x, char y)
+void LCD_SetXY(char x, char y) // set coordinate of cursor(x-axis, y-axis)
 {
 	if (y == 0) LCD_CMD_Write(0x80 + x);
 	else if(y == 1) LCD_CMD_Write(0xC0 + y);

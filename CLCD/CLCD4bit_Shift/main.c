@@ -1,7 +1,3 @@
-/* This is the exmple to use 4bit mode LCD writing.
- * In 4-bit mode, open DB[4:0] terminal(NC)
-*/
-
 #define F_CPU 16000000UL
 #include <avr/io.h>
 #include <util/delay.h>
@@ -15,32 +11,26 @@ typedef unsigned char u_char;
 #define LINE2 0XC0 // move to 2ed line
 #define ENH PORTC |= 0x04 // enable HIGH
 #define ENL PORTC &= 0xFB // enable Low
+#define HOME 0X02 // move cursor home
+#define RSHIFT 0x1C // display right shift
+#define DISPOFF 0x08 // Display off
 /**************************************************************/
 // function prototypes
 
 void LCD_INIT(void); // setting
 void Disp_String(const char * str); // display string
 void Busy(void); // 2ms delay
-void CMD(u_char); // to get command	
+void CMD(u_char); // to get command
 void Send_Data(u_char); // send character to the LCD
 /**************************************************************/
 
 
-int main(void)
-{
-	LCD_INIT(); // initialization
-	Disp_String("Hello World!");// print at first line(Write Mode)
-	CMD(LINE2); // move to the 2ed line(Instruction Mode)
-	Disp_String("I love you");
-}
 
-/**************************************************************/
-/**************************************************************/
-
+// function implementations
 void LCD_INIT(void) // refer to the data sheet
 {
 	DDRC = 0xFF;
-	PORTC = 0x00; 
+	PORTC = 0x00;
 	_delay_ms(15);
 	CMD(0x20);
 	_delay_ms(5);
@@ -112,3 +102,32 @@ void Busy(void)
 {
 	_delay_ms(2);
 }
+
+
+
+int main(void)
+{
+	LCD_INIT(); // 4bit mode CLCD init
+	while (1)
+	{
+		CMD(HOME);
+		Disp_String("Hello World"); // print at the first line
+		CMD(LINE2); // move cursor to the 2ed line
+		Disp_String("Atmel Atmega128");
+
+		_delay_ms(500);
+		CMD(DISPOFF);
+		_delay_ms(500);
+		CMD(DISPON);
+		_delay_ms(1000);
+
+		// shift to the right 16times
+		for (int i = 0; i < 16; i++)
+		{
+			CMD(RSHIFT);
+			_delay_ms(500);
+		}
+		
+	}
+}
+
