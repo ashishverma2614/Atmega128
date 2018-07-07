@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000130  00000000  00000000  000019d0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000447  00000000  00000000  00001b00  2**0
+ 10 .debug_str    00000449  00000000  00000000  00001b00  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000002e0  00000000  00000000  00001f47  2**0
+ 11 .debug_loc    000002e0  00000000  00000000  00001f49  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000050  00000000  00000000  00002227  2**0
+ 12 .debug_ranges 00000050  00000000  00000000  00002229  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -275,7 +275,7 @@ ISR(USART0_UDRE_vect) // INT for RX
 
 void UART_PutInt(char str[])
 {
-	tx_len = strlen(str);
+	tx_len = strlen(str); // calc the length of string delivered
  1a4:	fc 01       	movw	r30, r24
  1a6:	01 90       	ld	r0, Z+
  1a8:	00 20       	and	r0, r0
@@ -284,12 +284,12 @@ void UART_PutInt(char str[])
  1ae:	e8 1b       	sub	r30, r24
  1b0:	f9 0b       	sbc	r31, r25
  1b2:	e0 93 cd 01 	sts	0x01CD, r30	; 0x8001cd <tx_len>
-	strcpy(tx_buf, str);
+	strcpy(tx_buf, str); // copy the string delivered to transmit buffer
  1b6:	bc 01       	movw	r22, r24
  1b8:	81 e0       	ldi	r24, 0x01	; 1
  1ba:	91 e0       	ldi	r25, 0x01	; 1
  1bc:	20 d0       	rcall	.+64     	; 0x1fe <strcpy>
-	tx_index = 0;
+	tx_index = 0; // empty buffer
  1be:	10 92 cc 01 	sts	0x01CC, r1	; 0x8001cc <tx_index+0x1>
  1c2:	10 92 cb 01 	sts	0x01CB, r1	; 0x8001cb <tx_index>
 	UCSR0B |= (1 << UDRIE0); // turn-on RX INT

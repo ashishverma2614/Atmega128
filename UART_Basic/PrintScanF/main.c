@@ -22,17 +22,18 @@ int main(void)
 	printf("\n");
 	printf("Current Counter Value: ");
 	printf("%d\r\n", counter);
+
 	while (1)
 	{
 		scanf("%s", buf);
 
-		if (strcmp(buf, "DOWN") == 0)
+		if (strcasecmp(buf, "DOWN") == 0) // use strcasecmp instead
 		{
 			counter--;
 			printf("Current Counter Value : ");
 			printf("%d\r\n", counter);
 		}
-		else if (strcmp(buf, "UP") == 0)
+		else if (strcasecmp(buf, "UP") == 0)
 		{
 			counter++;
 			printf("Current Counter Value : ");

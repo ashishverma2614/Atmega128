@@ -224,7 +224,7 @@ int main(void)
 unsigned char UART0_receive(void)
 {
 	while(!(UCSR0A & (1 << RXC0))); // check receive status
-	return UDR0;
+	return UDR0; // need to set a var to receive this return val
 }
  214:	8f ec       	ldi	r24, 0xCF	; 207
  216:	89 b9       	out	0x09, r24	; 9
@@ -247,6 +247,9 @@ unsigned char UART0_receive(void)
 
 00000234 <UART0_print_string>:
 
+// TODO: use while instead
+// This function should be used in any kind of print since
+// basically a serial print treats all of data as ASCII
 void UART0_print_string(char str[])
 {
  234:	cf 93       	push	r28
@@ -257,24 +260,25 @@ void UART0_print_string(char str[])
  23c:	88 23       	and	r24, r24
  23e:	29 f0       	breq	.+10     	; 0x24a <UART0_print_string+0x16>
  240:	21 96       	adiw	r28, 0x01	; 1
-		UART0_transmit(str[i]);
+		UART0_transmit(str[i]); // transmit means write char
  242:	f4 df       	rcall	.-24     	; 0x22c <UART0_transmit>
-	return UDR0;
-}
-
+// TODO: use while instead
+// This function should be used in any kind of print since
+// basically a serial print treats all of data as ASCII
 void UART0_print_string(char str[])
 {
 	for (int i = 0; str[i]; i++)
  244:	89 91       	ld	r24, Y+
  246:	81 11       	cpse	r24, r1
  248:	fc cf       	rjmp	.-8      	; 0x242 <UART0_print_string+0xe>
-		UART0_transmit(str[i]);
+		UART0_transmit(str[i]); // transmit means write char
 }
  24a:	df 91       	pop	r29
  24c:	cf 91       	pop	r28
  24e:	08 95       	ret
 
 00000250 <UART0_print_float>:
+
 
 void UART0_print_float(float f)
 {
@@ -302,7 +306,7 @@ void UART0_print_float(float f)
  278:	1d 92       	st	X+, r1
  27a:	2a 95       	dec	r18
  27c:	e9 f7       	brne	.-6      	; 0x278 <UART0_print_float+0x28>
-	sprintf(numString, "%f", f);
+	sprintf(numString, "%f", f); // f will be stored in the array in a float format
  27e:	9f 93       	push	r25
  280:	8f 93       	push	r24
  282:	7f 93       	push	r23
@@ -341,7 +345,7 @@ void UART0_print_float(float f)
 
 000002be <UART0_print_1_byte_number>:
 
-void UART0_print_1_byte_number(unit8_t n)
+void UART0_print_1_byte_number(unit8_t n) // max of unsigned num = 256, need 4spaces array including null char
 {
  2be:	0f 93       	push	r16
  2c0:	1f 93       	push	r17

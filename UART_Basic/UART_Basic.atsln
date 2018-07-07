@@ -1,19 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UART_Basic", "UART_Basic\UART_Basic.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TX_Ch", "TX_Ch\TX_Ch.cproj", "{44DE81CC-997C-4BFF-BB0C-8999CBE0946A}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TX_String", "TX_String\TX_String.cproj", "{C615B275-A584-4014-833F-19407FC0740D}"
-EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UART0_Library_Test", "UART0_Library_Test\UART0_Library_Test.cproj", "{4AE9EF52-DCE1-4970-AE4B-872748B8253B}"
-EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Receive_VariableString", "Receive_VariableString\Receive_VariableString.cproj", "{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}"
-EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PrintScanF", "PrintScanF\PrintScanF.cproj", "{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +27,6 @@ Global
 		{C615B275-A584-4014-833F-19407FC0740D}.Debug|AVR.Build.0 = Debug|AVR
 		{C615B275-A584-4014-833F-19407FC0740D}.Release|AVR.ActiveCfg = Release|AVR
 		{C615B275-A584-4014-833F-19407FC0740D}.Release|AVR.Build.0 = Release|AVR
-		{4AE9EF52-DCE1-4970-AE4B-872748B8253B}.Debug|AVR.ActiveCfg = Debug|AVR
-		{4AE9EF52-DCE1-4970-AE4B-872748B8253B}.Debug|AVR.Build.0 = Debug|AVR
-		{4AE9EF52-DCE1-4970-AE4B-872748B8253B}.Release|AVR.ActiveCfg = Release|AVR
-		{4AE9EF52-DCE1-4970-AE4B-872748B8253B}.Release|AVR.Build.0 = Release|AVR
-		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Debug|AVR.ActiveCfg = Debug|AVR
-		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Debug|AVR.Build.0 = Debug|AVR
-		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Release|AVR.ActiveCfg = Release|AVR
-		{A60FA67F-903E-4EDF-BB41-5F6AC9CF80E3}.Release|AVR.Build.0 = Release|AVR
-		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Debug|AVR.ActiveCfg = Debug|AVR
-		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Debug|AVR.Build.0 = Debug|AVR
-		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Release|AVR.ActiveCfg = Release|AVR
-		{29C9AA6D-4E6C-4298-90A3-8EDF13DAC740}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
