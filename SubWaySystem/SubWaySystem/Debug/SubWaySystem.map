@@ -652,10 +652,11 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0080012a      0x250 main.o
-                                0x258 (size before relaxing)
+                0x0080012a      0x24f main.o
+                                0x257 (size before relaxing)
  *(.gnu.linkonce.r*)
                 0x0080037a                . = ALIGN (0x2)
+ *fill*         0x00800379        0x1 
                 0x0080037a                _edata = .
                 0x0080037a                PROVIDE (__data_end, .)
 

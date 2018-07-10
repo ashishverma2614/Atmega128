@@ -3,7 +3,7 @@
 
 #include "key.h"
 
-
+// 키는 풀업저항 사용하여 설정(입력시 0 값이 들어온다)
 #define KEY_IN	PINE
 #define KEY_DDR	DDRE
 
@@ -17,8 +17,8 @@ unsigned char getkey(unsigned char keyin)
 
 	key_flag = 0; // 키의 완전한 입력 확인을 위한 플래그(완전하게 입력되며 1로 set)
 
-	key = ~KEY_IN & 0xF0; //키 값을 읽는다: 키는 PF[7:5]에 풀업 방식의 저항으로 연결 -> 반전시켜서 읽어와야 함
-	if( key ) { // 키 값이 있다면
+	key = ~KEY_IN & 0xF0; //키 값을 읽는다(입력 포트에 마스킹): 키는 PF[7:5]에 풀업 방식의 저항으로 연결
+	if( key ) { // 키 값이 있다면 1이 된다(반전시켜서 마스킹을 했으므로)
 		_delay_ms(5); // 일정 시간을 주고
 		key = ~KEY_IN & 0xF0; // 채터링을 줄이기 위해서 다시 읽는다
 		if( key ) { // 키 값이 있으면(즉, 동일한 키 값이면), 각각의 키 입력을 분리한다

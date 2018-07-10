@@ -170,7 +170,7 @@ ISR(TIMER2_OVF_vect)
       e4:	83 e8       	ldi	r24, 0x83	; 131
       e6:	84 bd       	out	0x24, r24	; 36
 
-	FND_OUT = 0xF0; //  
+	FND_OUT = 0xF0;
       e8:	80 ef       	ldi	r24, 0xF0	; 240
       ea:	88 bb       	out	0x18, r24	; 24
 
@@ -328,7 +328,7 @@ unsigned char getkey(unsigned char keyin)
 			else if( key == 0x40 )	key = KEY_4;
      1a8:	80 34       	cpi	r24, 0x40	; 64
      1aa:	71 f0       	breq	.+28     	; 0x1c8 <getkey+0x50>
-			else if( key == 0x80 )	key = KEY_5;
+			else if( key == 0x80 )	key = KEY_5; // �ý��� �籸���� �̿�
      1ac:	80 38       	cpi	r24, 0x80	; 128
      1ae:	69 f4       	brne	.+26     	; 0x1ca <getkey+0x52>
      1b0:	85 e3       	ldi	r24, 0x35	; 53
@@ -356,7 +356,7 @@ unsigned char getkey(unsigned char keyin)
      1c6:	01 c0       	rjmp	.+2      	; 0x1ca <getkey+0x52>
 			else if( key == 0x40 )	key = KEY_4;
      1c8:	84 e3       	ldi	r24, 0x34	; 52
-			else if( key == 0x80 )	key = KEY_5;
+			else if( key == 0x80 )	key = KEY_5; // �ý��� �籸���� �̿�
 		}
 	}
 
@@ -673,7 +673,7 @@ void matrix_init(void)
 
 0000034a <mcu_init>:
 
-//MCU구동 초기화
+/* MCU구동 초기화 */
 void mcu_init(void)
 {
     //각 헤더 파일에서 설정된 변수와 설정을 초기화 한다
@@ -719,7 +719,7 @@ void variable_init(void) // variable constructor
 00000384 <main_screen>:
 }
 
-// 사용자용 LCD의 초기 화면
+// start_screen 이후에 이어서 구동되는 함수(start_screen함수의 마지막에서 호출됨)
 void main_screen(void)
 {
 	fnd_off(); // fnd끄고
@@ -741,7 +741,7 @@ void main_screen(void)
      396:	80 e0       	ldi	r24, 0x00	; 0
      398:	73 df       	rcall	.-282    	; 0x280 <lcd_gotoxy>
      39a:	8b e3       	ldi	r24, 0x3B	; 59
-	lcd_string("S1:Adult  S2:Kid");
+	lcd_string("S1:Adult S2:Kid");
      39c:	91 e0       	ldi	r25, 0x01	; 1
      39e:	62 cf       	rjmp	.-316    	; 0x264 <lcd_string>
      3a0:	08 95       	ret
@@ -759,7 +759,7 @@ void start_screen(void) // initial screen menu without nothing, preceding main s
 	int i;
 
 	lcd_string("   Welcome To   ");
-     3aa:	8c e4       	ldi	r24, 0x4C	; 76
+     3aa:	8b e4       	ldi	r24, 0x4B	; 75
      3ac:	91 e0       	ldi	r25, 0x01	; 1
      3ae:	5a df       	rcall	.-332    	; 0x264 <lcd_string>
 	lcd_gotoxy(0, 1); // go line2
@@ -767,7 +767,7 @@ void start_screen(void) // initial screen menu without nothing, preceding main s
      3b2:	80 e0       	ldi	r24, 0x00	; 0
      3b4:	65 df       	rcall	.-310    	; 0x280 <lcd_gotoxy>
 	lcd_string("Gangnam Station!"); // current station
-     3b6:	8d e5       	ldi	r24, 0x5D	; 93
+     3b6:	8c e5       	ldi	r24, 0x5C	; 92
      3b8:	91 e0       	ldi	r25, 0x01	; 1
      3ba:	54 df       	rcall	.-344    	; 0x264 <lcd_string>
      3bc:	ca e0       	ldi	r28, 0x0A	; 10
@@ -776,7 +776,7 @@ void start_screen(void) // initial screen menu without nothing, preceding main s
      3c2:	11 e0       	ldi	r17, 0x01	; 1
 
     // LEDdml 0.3초 간격 순차 점멸(LED1→LED2→LED3→LED4→LED8→LED12→LED16→LED15
-    //				→LED11→LED7→LED6→LED10→LED14→LED13→LED9→LED5)    
+    //				→LED11→LED7→LED6→LED10→LED14→LED13→LED9→LED5), FND는 소등한다(main_screen함수에 포함)
     for( i = 0; i < 16; i++ ) {
         matrix_led(*(led_order + i));
      3c4:	89 91       	ld	r24, Y+
@@ -795,7 +795,7 @@ void start_screen(void) // initial screen menu without nothing, preceding main s
 	lcd_string("Gangnam Station!"); // current station
 
     // LEDdml 0.3초 간격 순차 점멸(LED1→LED2→LED3→LED4→LED8→LED12→LED16→LED15
-    //				→LED11→LED7→LED6→LED10→LED14→LED13→LED9→LED5)    
+    //				→LED11→LED7→LED6→LED10→LED14→LED13→LED9→LED5), FND는 소등한다(main_screen함수에 포함)
     for( i = 0; i < 16; i++ ) {
      3dc:	c0 17       	cp	r28, r16
      3de:	d1 07       	cpc	r29, r17
@@ -838,33 +838,33 @@ void select_station(char keyin) // station select mode
      410:	e1 f7       	brne	.-8      	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
      412:	00 c0       	rjmp	.+0      	; 0x414 <__LOCK_REGION_LENGTH__+0x14>
      414:	00 00       	nop
-	char key = keyin; // receive adult/kid key for calculating fare
+	char key = keyin; // 이전 단계에서 키를 받으면 지하철 역 선택 모드로 넘어온다
 	int station;
-	_delay_ms(500);
+	_delay_ms(500); // .5초의 지연시간(메뉴얼 참조)
 
-	start_station = 1; // set start station
+	start_station = 1; // 초기 값(강남역)
      416:	81 e0       	ldi	r24, 0x01	; 1
      418:	90 e0       	ldi	r25, 0x00	; 0
      41a:	90 93 80 03 	sts	0x0380, r25	; 0x800380 <start_station+0x1>
      41e:	80 93 7f 03 	sts	0x037F, r24	; 0x80037f <start_station>
-	station = start_station; // substitution
+	station = start_station; // 출발역을 임시변수에 대입
      422:	c0 91 7f 03 	lds	r28, 0x037F	; 0x80037f <start_station>
      426:	d0 91 80 03 	lds	r29, 0x0380	; 0x800380 <start_station+0x1>
 
-	distance = 0; // set distance
+	distance = 0; // 종착역에 설정되지 않았으므로 거리는 0
      42a:	10 92 83 03 	sts	0x0383, r1	; 0x800383 <distance+0x1>
      42e:	10 92 82 03 	sts	0x0382, r1	; 0x800382 <distance>
-	fee = 0; // set fare
+	fee = 0; // 차비도 0
      432:	10 92 87 03 	sts	0x0387, r1	; 0x800387 <fee+0x1>
      436:	10 92 86 03 	sts	0x0386, r1	; 0x800386 <fee>
 
-	// display initial LCD
+	// 역 선택 입력을 받기 위한 화면을 출력한다
 	lcd_gotoxy(0, 0);
      43a:	60 e0       	ldi	r22, 0x00	; 0
      43c:	80 e0       	ldi	r24, 0x00	; 0
      43e:	20 df       	rcall	.-448    	; 0x280 <lcd_gotoxy>
 	lcd_string(" Start Station  ");
-     440:	8e e6       	ldi	r24, 0x6E	; 110
+     440:	8d e6       	ldi	r24, 0x6D	; 109
      442:	91 e0       	ldi	r25, 0x01	; 1
      444:	0f df       	rcall	.-482    	; 0x264 <lcd_string>
 	lcd_gotoxy(0, 1);
@@ -872,25 +872,25 @@ void select_station(char keyin) // station select mode
      448:	80 e0       	ldi	r24, 0x00	; 0
      44a:	1a df       	rcall	.-460    	; 0x280 <lcd_gotoxy>
 	lcd_string("Station Num : ");
-     44c:	8f e7       	ldi	r24, 0x7F	; 127
+     44c:	8e e7       	ldi	r24, 0x7E	; 126
      44e:	91 e0       	ldi	r25, 0x01	; 1
      450:	09 df       	rcall	.-494    	; 0x264 <lcd_string>
      452:	aa 24       	eor	r10, r10
-                    break;
 
-				case KEY_3 : // select station
-				if( state == SELECT_START_STATION ) { // 1: case of selecting start station
-					start_station = station;
-					end_station = 1;
+				case KEY_3 : // (출발)역 선택키
+					if( state == SELECT_START_STATION ) 
+					{ // 출발역 결정 모드
+						start_station = station; // 출발역 결정
+						end_station = 1; // 도착역 설정을 위한 도착역의 초기화
      454:	a3 94       	inc	r10
      456:	b1 2c       	mov	r11, r1
      458:	02 e0       	ldi	r16, 0x02	; 2
-					station = end_station;
 
-					lcd_gotoxy(0, 0);
-					lcd_string(" End   Station  ");
+						// 도착역 입력을 받기 위한 사용자 인터페이스 화면 출력
+						lcd_gotoxy(0, 0);
+						lcd_string(" End   Station  ");
 
-					state = SELECT_END_STATION; // move to selecting end station
+						state = SELECT_END_STATION; // 도착역 모드 진입(도착역 키 값을 다시 받으러 간다)
      45a:	0f 2e       	mov	r0, r31
 			}
 		}
@@ -898,7 +898,7 @@ void select_station(char keyin) // station select mode
 		matrix_led(led_order[station - 1]);
 		lcd_gotoxy(14, 1);
 		printf("%02d", station);
-     45c:	fc e2       	ldi	r31, 0x2C	; 44
+     45c:	fb e2       	ldi	r31, 0x2B	; 43
      45e:	cf 2e       	mov	r12, r31
      460:	f2 e0       	ldi	r31, 0x02	; 2
      462:	df 2e       	mov	r13, r31
@@ -908,17 +908,17 @@ void select_station(char keyin) // station select mode
 	lcd_string("Station Num : ");
 
 	while( 1 ) { 
-		key = getkey(key); // get "station moving"
+		key = getkey(key); // 정방향(S1)또는 역방향(S2)를 눌러 역 선택
      466:	81 2f       	mov	r24, r17
      468:	87 de       	rcall	.-754    	; 0x178 <getkey>
      46a:	18 2f       	mov	r17, r24
      46c:	80 91 7e 03 	lds	r24, 0x037E	; 0x80037e <key_flag>
-		if( key_flag ) { // check key flag
+		if( key_flag ) { // 정상적 키 입력의 확인
      470:	88 23       	and	r24, r24
      472:	09 f4       	brne	.+2      	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
      474:	6c c1       	rjmp	.+728    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
      476:	12 33       	cpi	r17, 0x32	; 50
-			switch( key ) { // according to each key input: key1(move+), key2(move-), key3(select)
+			switch( key ) { // 키 입력 분류
      478:	91 f0       	breq	.+36     	; 0x49e <__LOCK_REGION_LENGTH__+0x9e>
      47a:	18 f4       	brcc	.+6      	; 0x482 <__LOCK_REGION_LENGTH__+0x82>
      47c:	11 33       	cpi	r17, 0x31	; 49
@@ -931,14 +931,10 @@ void select_station(char keyin) // station select mode
      48a:	58 c1       	rjmp	.+688    	; 0x73c <__LOCK_REGION_LENGTH__+0x33c>
      48c:	60 c1       	rjmp	.+704    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
      48e:	21 96       	adiw	r28, 0x01	; 1
-				//		나. LED
-				//			SW1를 1번 누를 때마다 1정거장씩 정방향으로 이동되고,
-				//			SW2을 1번 누를 때마다 1정거장씩 역방향으로 이동되게 하시오.
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				case KEY_1 : // move to forward direction
+				case KEY_1 : // 정방향 이동키
                     station++;
      490:	c1 31       	cpi	r28, 0x11	; 17
-                    if (station == 17) station = 1;
+                    if (station == 17) station = 1; // 17번째 역은 없으므로 처음으로 돌아간다
      492:	d1 05       	cpc	r29, r1
      494:	09 f0       	breq	.+2      	; 0x498 <__LOCK_REGION_LENGTH__+0x98>
      496:	5b c1       	rjmp	.+694    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
@@ -948,10 +944,10 @@ void select_station(char keyin) // station select mode
      49e:	21 97       	sbiw	r28, 0x01	; 1
                     break;
 
-				case KEY_2 : // move to reverse direction
+				case KEY_2 : // 역방향 이동키
                     station--;
      4a0:	09 f0       	breq	.+2      	; 0x4a4 <__LOCK_REGION_LENGTH__+0xa4>
-                    if (station == 0) station = 16;
+                    if (station == 0) station = 16; // 0번쨰 역은 없으므로 마지막으로 돌아간다
      4a2:	55 c1       	rjmp	.+682    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
      4a4:	c0 e1       	ldi	r28, 0x10	; 16
      4a6:	d0 e0       	ldi	r29, 0x00	; 0
@@ -959,75 +955,78 @@ void select_station(char keyin) // station select mode
      4aa:	80 91 84 03 	lds	r24, 0x0384	; 0x800384 <state>
                     break;
 
-				case KEY_3 : // select station
-				if( state == SELECT_START_STATION ) { // 1: case of selecting start station
+				case KEY_3 : // (출발)역 선택키
+					if( state == SELECT_START_STATION ) 
      4ae:	81 30       	cpi	r24, 0x01	; 1
      4b0:	a9 f4       	brne	.+42     	; 0x4dc <__LOCK_REGION_LENGTH__+0xdc>
      4b2:	d0 93 80 03 	sts	0x0380, r29	; 0x800380 <start_station+0x1>
-					start_station = station;
+					{ // 출발역 결정 모드
+						start_station = station; // 출발역 결정
      4b6:	c0 93 7f 03 	sts	0x037F, r28	; 0x80037f <start_station>
      4ba:	b0 92 89 03 	sts	0x0389, r11	; 0x800389 <end_station+0x1>
-					end_station = 1;
+						end_station = 1; // 도착역 설정을 위한 도착역의 초기화
      4be:	a0 92 88 03 	sts	0x0388, r10	; 0x800388 <end_station>
      4c2:	c0 91 88 03 	lds	r28, 0x0388	; 0x800388 <end_station>
-					station = end_station;
+						station = end_station; // 임시 변수에 도착역 초기값 대입
      4c6:	d0 91 89 03 	lds	r29, 0x0389	; 0x800389 <end_station+0x1>
 
-					lcd_gotoxy(0, 0);
+						// 도착역 입력을 받기 위한 사용자 인터페이스 화면 출력
+						lcd_gotoxy(0, 0);
      4ca:	60 e0       	ldi	r22, 0x00	; 0
      4cc:	80 e0       	ldi	r24, 0x00	; 0
      4ce:	d8 de       	rcall	.-592    	; 0x280 <lcd_gotoxy>
-					lcd_string(" End   Station  ");
-     4d0:	8e e8       	ldi	r24, 0x8E	; 142
+						lcd_string(" End   Station  ");
+     4d0:	8d e8       	ldi	r24, 0x8D	; 141
      4d2:	91 e0       	ldi	r25, 0x01	; 1
      4d4:	c7 de       	rcall	.-626    	; 0x264 <lcd_string>
      4d6:	00 93 84 03 	sts	0x0384, r16	; 0x800384 <state>
 
-					state = SELECT_END_STATION; // move to selecting end station
+						state = SELECT_END_STATION; // 도착역 모드 진입(도착역 키 값을 다시 받으러 간다)
      4da:	39 c1       	rjmp	.+626    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
      4dc:	80 91 84 03 	lds	r24, 0x0384	; 0x800384 <state>
-				}
-				else if( state == SELECT_END_STATION ) { // 2: case of selecting end station
+					}
+					else if( state == SELECT_END_STATION ) 
      4e0:	82 30       	cpi	r24, 0x02	; 2
      4e2:	09 f0       	breq	.+2      	; 0x4e6 <__LOCK_REGION_LENGTH__+0xe6>
      4e4:	34 c1       	rjmp	.+616    	; 0x74e <__LOCK_REGION_LENGTH__+0x34e>
-					end_station = station;
+					{ // 도착역 결정모드
+						end_station = station;
      4e6:	d0 93 89 03 	sts	0x0389, r29	; 0x800389 <end_station+0x1>
      4ea:	c0 93 88 03 	sts	0x0388, r28	; 0x800388 <end_station>
 
-					// display chosen result: start/end station
-					lcd_gotoxy(0, 0);
+						// 출도착 역 확인 출력
+						lcd_gotoxy(0, 0);
      4ee:	60 e0       	ldi	r22, 0x00	; 0
      4f0:	80 e0       	ldi	r24, 0x00	; 0
      4f2:	c6 de       	rcall	.-628    	; 0x280 <lcd_gotoxy>
      4f4:	80 91 7f 03 	lds	r24, 0x037F	; 0x80037f <start_station>
-					printf("Start:%02d Station", start_station);
+						printf("Start:%02d Station", start_station);
      4f8:	90 91 80 03 	lds	r25, 0x0380	; 0x800380 <start_station+0x1>
      4fc:	9f 93       	push	r25
      4fe:	8f 93       	push	r24
-     500:	8f e9       	ldi	r24, 0x9F	; 159
+     500:	8e e9       	ldi	r24, 0x9E	; 158
      502:	91 e0       	ldi	r25, 0x01	; 1
      504:	9f 93       	push	r25
      506:	8f 93       	push	r24
      508:	4e d5       	rcall	.+2716   	; 0xfa6 <printf>
-					lcd_gotoxy(0, 1);
+						lcd_gotoxy(0, 1);
      50a:	61 e0       	ldi	r22, 0x01	; 1
      50c:	80 e0       	ldi	r24, 0x00	; 0
      50e:	b8 de       	rcall	.-656    	; 0x280 <lcd_gotoxy>
      510:	80 91 88 03 	lds	r24, 0x0388	; 0x800388 <end_station>
-					printf("End  :%02d Station", end_station);
+						printf("End  :%02d Station", end_station);
      514:	90 91 89 03 	lds	r25, 0x0389	; 0x800389 <end_station+0x1>
      518:	9f 93       	push	r25
      51a:	8f 93       	push	r24
-     51c:	82 eb       	ldi	r24, 0xB2	; 178
+     51c:	81 eb       	ldi	r24, 0xB1	; 177
      51e:	91 e0       	ldi	r25, 0x01	; 1
      520:	9f 93       	push	r25
      522:	8f 93       	push	r24
      524:	40 d5       	rcall	.+2688   	; 0xfa6 <printf>
      526:	a0 91 7f 03 	lds	r26, 0x037F	; 0x80037f <start_station>
 
-					// blink led start and end station 
-					matrix_led(led_order[start_station - 1] | led_order[end_station - 1]);
+						// 출도착역의 LED확인 
+						matrix_led(led_order[start_station - 1] | led_order[end_station - 1]);
      52a:	b0 91 80 03 	lds	r27, 0x0380	; 0x800380 <start_station+0x1>
      52e:	e0 91 88 03 	lds	r30, 0x0388	; 0x800388 <end_station>
      532:	f0 91 89 03 	lds	r31, 0x0389	; 0x800389 <end_station+0x1>
@@ -1056,11 +1055,10 @@ void select_station(char keyin) // station select mode
      562:	00 c0       	rjmp	.+0      	; 0x564 <__LOCK_REGION_LENGTH__+0x164>
      564:	00 00       	nop
      566:	20 91 7f 03 	lds	r18, 0x037F	; 0x80037f <start_station>
+						_delay_ms(500);
 
-					_delay_ms(500);
-
-					// exception handling!
-					if( start_station == end_station ) {
+					// 예외처리(exception handling)
+					if( start_station == end_station ) 
      56a:	30 91 80 03 	lds	r19, 0x0380	; 0x800380 <start_station+0x1>
      56e:	80 91 88 03 	lds	r24, 0x0388	; 0x800388 <end_station>
      572:	90 91 89 03 	lds	r25, 0x0389	; 0x800389 <end_station+0x1>
@@ -1074,6 +1072,7 @@ void select_station(char keyin) // station select mode
      584:	0f be       	out	0x3f, r0	; 63
      586:	4d bf       	out	0x3d, r20	; 61
      588:	28 17       	cp	r18, r24
+					{
 						lcd_gotoxy(0, 0);
      58a:	39 07       	cpc	r19, r25
      58c:	09 f5       	brne	.+66     	; 0x5d0 <__LOCK_REGION_LENGTH__+0x1d0>
@@ -1081,14 +1080,14 @@ void select_station(char keyin) // station select mode
      590:	80 e0       	ldi	r24, 0x00	; 0
 						lcd_string("    Error!!     ");
      592:	76 de       	rcall	.-788    	; 0x280 <lcd_gotoxy>
-     594:	85 ec       	ldi	r24, 0xC5	; 197
+     594:	84 ec       	ldi	r24, 0xC4	; 196
      596:	91 e0       	ldi	r25, 0x01	; 1
      598:	65 de       	rcall	.-822    	; 0x264 <lcd_string>
 						lcd_gotoxy(0, 1);
      59a:	61 e0       	ldi	r22, 0x01	; 1
      59c:	80 e0       	ldi	r24, 0x00	; 0
      59e:	70 de       	rcall	.-800    	; 0x280 <lcd_gotoxy>
-     5a0:	86 ed       	ldi	r24, 0xD6	; 214
+     5a0:	85 ed       	ldi	r24, 0xD5	; 213
 						lcd_string("Return To First!"); // it implies that selecting station is not the first process
      5a2:	91 e0       	ldi	r25, 0x01	; 1
      5a4:	5f de       	rcall	.-834    	; 0x264 <lcd_string>
@@ -1104,18 +1103,18 @@ void select_station(char keyin) // station select mode
      5b8:	10 92 80 03 	sts	0x0380, r1	; 0x800380 <start_station+0x1>
 						_delay_ms(500);
 
-						// 
+						// 오류가 생기면 출/도착 역이 초기화 된다
 						start_station = NONE;
      5bc:	10 92 7f 03 	sts	0x037F, r1	; 0x80037f <start_station>
      5c0:	10 92 89 03 	sts	0x0389, r1	; 0x800389 <end_station+0x1>
 						end_station = NONE;
      5c4:	10 92 88 03 	sts	0x0388, r1	; 0x800388 <end_station>
      5c8:	dd de       	rcall	.-582    	; 0x384 <main_screen>
-
+						// 메인 화면이 (다시) 호출된다
 						main_screen();
      5ca:	10 92 84 03 	sts	0x0384, r1	; 0x800384 <state>
 
-						state = SELECT_TICKET_TYPE; // ticket type mode -> station select mode -> fare calculation
+						state = SELECT_TICKET_TYPE; // 티켓 선택 모드로 다시 진입한다
      5ce:	d4 c0       	rjmp	.+424    	; 0x778 <__LOCK_REGION_LENGTH__+0x378>
      5d0:	80 91 88 03 	lds	r24, 0x0388	; 0x800388 <end_station>
 						//	[문제 3] 출발역과 도착역 선택 후 최단거리와 요금을 계산하여 LCD에 표시
@@ -1212,7 +1211,7 @@ void select_station(char keyin) // station select mode
      684:	90 91 83 03 	lds	r25, 0x0383	; 0x800383 <distance+0x1>
      688:	9f 93       	push	r25
      68a:	8f 93       	push	r24
-     68c:	87 ee       	ldi	r24, 0xE7	; 231
+     68c:	86 ee       	ldi	r24, 0xE6	; 230
      68e:	91 e0       	ldi	r25, 0x01	; 1
      690:	9f 93       	push	r25
      692:	8f 93       	push	r24
@@ -1252,7 +1251,7 @@ void select_station(char keyin) // station select mode
      6d8:	90 91 87 03 	lds	r25, 0x0387	; 0x800387 <fee+0x1>
      6dc:	9f 93       	push	r25
      6de:	8f 93       	push	r24
-     6e0:	89 ef       	ldi	r24, 0xF9	; 249
+     6e0:	88 ef       	ldi	r24, 0xF8	; 248
      6e2:	91 e0       	ldi	r25, 0x01	; 1
      6e4:	9f 93       	push	r25
      6e6:	8f 93       	push	r24
@@ -1274,7 +1273,7 @@ void select_station(char keyin) // station select mode
      6fe:	80 e0       	ldi	r24, 0x00	; 0
 						lcd_string("Insert Money!!  ");
      700:	bf dd       	rcall	.-1154   	; 0x280 <lcd_gotoxy>
-     702:	8a e0       	ldi	r24, 0x0A	; 10
+     702:	89 e0       	ldi	r24, 0x09	; 9
      704:	92 e0       	ldi	r25, 0x02	; 2
      706:	ae dd       	rcall	.-1188   	; 0x264 <lcd_string>
 						lcd_gotoxy(0, 1);
@@ -1286,7 +1285,7 @@ void select_station(char keyin) // station select mode
      712:	90 91 87 03 	lds	r25, 0x0387	; 0x800387 <fee+0x1>
      716:	9f 93       	push	r25
      718:	8f 93       	push	r24
-     71a:	8b e1       	ldi	r24, 0x1B	; 27
+     71a:	8a e1       	ldi	r24, 0x1A	; 26
      71c:	92 e0       	ldi	r25, 0x02	; 2
      71e:	9f 93       	push	r25
      720:	8f 93       	push	r24
@@ -1405,7 +1404,7 @@ void train_go(void)
      7d2:	80 e0       	ldi	r24, 0x00	; 0
      7d4:	55 dd       	rcall	.-1366   	; 0x280 <lcd_gotoxy>
 	lcd_string("Train Is Going..");
-     7d6:	81 e3       	ldi	r24, 0x31	; 49
+     7d6:	80 e3       	ldi	r24, 0x30	; 48
      7d8:	92 e0       	ldi	r25, 0x02	; 2
      7da:	44 dd       	rcall	.-1400   	; 0x264 <lcd_string>
 
@@ -1439,7 +1438,7 @@ void train_go(void)
 		serial_transmit('\f'); // 커서를 한 페이지 이동한다(form feed)
         sprintf(str, "Time/m        : %d\r\n", distance - i);
      800:	0f 2e       	mov	r0, r31
-     802:	fa e8       	ldi	r31, 0x8A	; 138
+     802:	f9 e8       	ldi	r31, 0x89	; 137
      804:	6f 2e       	mov	r6, r31
      806:	f2 e0       	ldi	r31, 0x02	; 2
      808:	7f 2e       	mov	r7, r31
@@ -1450,7 +1449,7 @@ void train_go(void)
         serial_string(str);
         sprintf(str, "Distance      : %d\r\n", i);
      812:	0f 2e       	mov	r0, r31
-     814:	ff e9       	ldi	r31, 0x9F	; 159
+     814:	fe e9       	ldi	r31, 0x9E	; 158
      816:	4f 2e       	mov	r4, r31
      818:	f2 e0       	ldi	r31, 0x02	; 2
      81a:	5f 2e       	mov	r5, r31
@@ -1458,7 +1457,7 @@ void train_go(void)
         serial_string(str);
         sprintf(str, "Start Station : %02d\r\n", start_station);
      81e:	0f 2e       	mov	r0, r31
-     820:	f4 eb       	ldi	r31, 0xB4	; 180
+     820:	f3 eb       	ldi	r31, 0xB3	; 179
      822:	2f 2e       	mov	r2, r31
      824:	f2 e0       	ldi	r31, 0x02	; 2
      826:	3f 2e       	mov	r3, r31
@@ -1498,7 +1497,7 @@ void train_go(void)
      860:	9f 09       	sbc	r25, r15
      862:	9f 93       	push	r25
      864:	8f 93       	push	r24
-     866:	82 e4       	ldi	r24, 0x42	; 66
+     866:	81 e4       	ldi	r24, 0x41	; 65
      868:	92 e0       	ldi	r25, 0x02	; 2
      86a:	9f 93       	push	r25
      86c:	8f 93       	push	r24
@@ -1515,7 +1514,7 @@ void train_go(void)
      884:	9f 09       	sbc	r25, r15
      886:	9f 93       	push	r25
      888:	8f 93       	push	r24
-     88a:	85 e5       	ldi	r24, 0x55	; 85
+     88a:	84 e5       	ldi	r24, 0x54	; 84
      88c:	92 e0       	ldi	r25, 0x02	; 2
      88e:	9f 93       	push	r25
      890:	8f 93       	push	r24
@@ -1532,7 +1531,7 @@ void train_go(void)
      8a0:	80 e0       	ldi	r24, 0x00	; 0
 			lcd_string("Train Is Arrived");
      8a2:	ee dc       	rcall	.-1572   	; 0x280 <lcd_gotoxy>
-     8a4:	88 e6       	ldi	r24, 0x68	; 104
+     8a4:	87 e6       	ldi	r24, 0x67	; 103
      8a6:	92 e0       	ldi	r25, 0x02	; 2
 			lcd_gotoxy(0, 1);
      8a8:	dd dc       	rcall	.-1606   	; 0x264 <lcd_string>
@@ -1540,7 +1539,7 @@ void train_go(void)
      8ac:	80 e0       	ldi	r24, 0x00	; 0
      8ae:	e8 dc       	rcall	.-1584   	; 0x280 <lcd_gotoxy>
 			lcd_string(" Thanks A Lot!  ");
-     8b0:	89 e7       	ldi	r24, 0x79	; 121
+     8b0:	88 e7       	ldi	r24, 0x78	; 120
      8b2:	92 e0       	ldi	r25, 0x02	; 2
      8b4:	d7 dc       	rcall	.-1618   	; 0x264 <lcd_string>
 		}
@@ -1605,7 +1604,7 @@ void train_go(void)
      918:	90 91 89 03 	lds	r25, 0x0389	; 0x800389 <end_station+0x1>
      91c:	9f 93       	push	r25
      91e:	8f 93       	push	r24
-     920:	8b ec       	ldi	r24, 0xCB	; 203
+     920:	8a ec       	ldi	r24, 0xCA	; 202
      922:	92 e0       	ldi	r25, 0x02	; 2
      924:	9f 93       	push	r25
      926:	8f 93       	push	r24
@@ -1622,7 +1621,7 @@ void train_go(void)
      938:	bf 0a       	sbc	r11, r31
      93a:	bf 92       	push	r11
      93c:	af 92       	push	r10
-     93e:	82 ee       	ldi	r24, 0xE2	; 226
+     93e:	81 ee       	ldi	r24, 0xE1	; 225
      940:	92 e0       	ldi	r25, 0x02	; 2
      942:	9f 93       	push	r25
      944:	8f 93       	push	r24
@@ -1637,7 +1636,7 @@ void train_go(void)
      954:	90 91 87 03 	lds	r25, 0x0387	; 0x800387 <fee+0x1>
      958:	9f 93       	push	r25
      95a:	8f 93       	push	r24
-     95c:	89 ef       	ldi	r24, 0xF9	; 249
+     95c:	88 ef       	ldi	r24, 0xF8	; 248
      95e:	92 e0       	ldi	r25, 0x02	; 2
      960:	9f 93       	push	r25
      962:	8f 93       	push	r24
@@ -1799,12 +1798,12 @@ int main(void) // main method: initialization + loop
      a4c:	91 e0       	ldi	r25, 0x01	; 1
      a4e:	61 d2       	rcall	.+1218   	; 0xf12 <fdevopen>
 
-	start_screen();
+	start_screen(); // main_screen 함수가 내부에서 호출되고 있음
      a50:	a8 dc       	rcall	.-1712   	; 0x3a2 <start_screen>
 	state = SELECT_TICKET_TYPE; // first menu
      a52:	10 92 84 03 	sts	0x0384, r1	; 0x800384 <state>
 
-	var_start();
+	var_start(); // 가변저항 입력값의 초기화 
      a56:	30 d1       	rcall	.+608    	; 0xcb8 <var_start>
      a58:	cf ef       	ldi	r28, 0xFF	; 255
 	state = SELECT_TICKET_TYPE;
@@ -1820,7 +1819,7 @@ int main(void) // main method: initialization + loop
 						lcd_string("  [S4] Go!!     ");
 						lcd_gotoxy(0, 1);
 						printf("  Distance : %d  ", distance);
-     a5c:	f5 e6       	ldi	r31, 0x65	; 101
+     a5c:	f4 e6       	ldi	r31, 0x64	; 100
      a5e:	cf 2e       	mov	r12, r31
      a60:	f3 e0       	ldi	r31, 0x03	; 3
      a62:	df 2e       	mov	r13, r31
@@ -1835,7 +1834,7 @@ int main(void) // main method: initialization + loop
 							lcd_string("Here Is Change. ");
 							lcd_gotoxy(0, 1);
 							printf("Change : %04d   ", money - fee);
-     a6a:	f3 e4       	ldi	r31, 0x43	; 67
+     a6a:	f2 e4       	ldi	r31, 0x42	; 66
      a6c:	ef 2e       	mov	r14, r31
      a6e:	f3 e0       	ldi	r31, 0x03	; 3
      a70:	ff 2e       	mov	r15, r31
@@ -1846,24 +1845,24 @@ int main(void) // main method: initialization + loop
         {
             lcd_gotoxy(9, 1);
             printf("%04d   ", money);
-     a74:	0c e4       	ldi	r16, 0x4C	; 76
+     a74:	0b e4       	ldi	r16, 0x4B	; 75
      a76:	13 e0       	ldi	r17, 0x03	; 3
 	state = SELECT_TICKET_TYPE; // first menu
 
-	var_start();
+	var_start(); // 가변저항 입력값의 초기화 
 
 	while( 1 ) {
-		key = getkey(key);
+		key = getkey(key); // 키 입력을 읽어옴
      a78:	8c 2f       	mov	r24, r28
      a7a:	7e db       	rcall	.-2308   	; 0x178 <getkey>
      a7c:	c8 2f       	mov	r28, r24
      a7e:	80 91 7e 03 	lds	r24, 0x037E	; 0x80037e <key_flag>
-		if( key_flag ) {
+		if( key_flag ) { // 온전하게 키 입력을 받은 것인지 확인한다
      a82:	88 23       	and	r24, r24
      a84:	09 f4       	brne	.+2      	; 0xa88 <main+0x48>
      a86:	91 c0       	rjmp	.+290    	; 0xbaa <main+0x16a>
      a88:	c3 33       	cpi	r28, 0x33	; 51
-			switch( key ) {
+			switch( key ) { // 키 값을 분류한다
      a8a:	31 f1       	breq	.+76     	; 0xad8 <main+0x98>
      a8c:	18 f4       	brcc	.+6      	; 0xa94 <main+0x54>
      a8e:	c1 33       	cpi	r28, 0x31	; 49
@@ -1878,14 +1877,15 @@ int main(void) // main method: initialization + loop
      aa0:	84 c0       	rjmp	.+264    	; 0xbaa <main+0x16a>
      aa2:	80 91 84 03 	lds	r24, 0x0384	; 0x800384 <state>
 				case KEY_1 :
-				case KEY_2 : // key1, 2 for age menu select
-				if( state == SELECT_TICKET_TYPE ) { // ticket type select -> select station
+				case KEY_2 : // key1이나 2를 누르면, 티켓 선택 모드로 진입한다
+				if( state == SELECT_TICKET_TYPE ) { // 모드에 진입했다면
      aa6:	81 11       	cpse	r24, r1
      aa8:	80 c0       	rjmp	.+256    	; 0xbaa <main+0x16a>
-					state = SELECT_START_STATION;
+					state = SELECT_START_STATION; // 다음 모드(출발역 선택)로 미리 변경해 두고
      aaa:	81 e0       	ldi	r24, 0x01	; 1
      aac:	80 93 84 03 	sts	0x0384, r24	; 0x800384 <state>
 
+					//선택 모드에서 받은 키 값에 따른 결과는 출력한다
 					lcd_command_write(0x01);
      ab0:	a0 db       	rcall	.-2240   	; 0x1f2 <lcd_command_write>
 					lcd_gotoxy(0, 0);
@@ -1895,21 +1895,21 @@ int main(void) // main method: initialization + loop
 					if( key == KEY_1 )		lcd_string("You Select Adult");
      ab8:	c1 33       	cpi	r28, 0x31	; 49
      aba:	21 f4       	brne	.+8      	; 0xac4 <main+0x84>
-     abc:	80 e1       	ldi	r24, 0x10	; 16
+     abc:	8f e0       	ldi	r24, 0x0F	; 15
      abe:	93 e0       	ldi	r25, 0x03	; 3
      ac0:	d1 db       	rcall	.-2142   	; 0x264 <lcd_string>
      ac2:	05 c0       	rjmp	.+10     	; 0xace <main+0x8e>
 					else if( key == KEY_2 )	lcd_string("You Select Kid  ");
      ac4:	c2 33       	cpi	r28, 0x32	; 50
      ac6:	19 f4       	brne	.+6      	; 0xace <main+0x8e>
-     ac8:	81 e2       	ldi	r24, 0x21	; 33
+     ac8:	80 e2       	ldi	r24, 0x20	; 32
      aca:	93 e0       	ldi	r25, 0x03	; 3
      acc:	cb db       	rcall	.-2154   	; 0x264 <lcd_string>
      ace:	c0 93 81 03 	sts	0x0381, r28	; 0x800381 <ticket_type>
 
-					ticket_type = key;
+					ticket_type = key; // 현재 받은 키 값을 '티켓타입'변수에 저장한다
      ad2:	8c 2f       	mov	r24, r28
-					select_station(key); // enter select station mode
+					select_station(key); // key1 또는 key2의 값을 받으면, 티켓 설정을 완료하고 "역 선택 모드를 호출한다"
      ad4:	8c dc       	rcall	.-1768   	; 0x3ee <select_station>
      ad6:	69 c0       	rjmp	.+210    	; 0xbaa <main+0x16a>
      ad8:	80 91 84 03 	lds	r24, 0x0384	; 0x800384 <state>
@@ -1943,7 +1943,7 @@ int main(void) // main method: initialization + loop
      b12:	80 e0       	ldi	r24, 0x00	; 0
      b14:	b5 db       	rcall	.-2198   	; 0x280 <lcd_gotoxy>
 							lcd_string("Here Is Change. ");
-     b16:	82 e3       	ldi	r24, 0x32	; 50
+     b16:	81 e3       	ldi	r24, 0x31	; 49
      b18:	93 e0       	ldi	r25, 0x03	; 3
      b1a:	a4 db       	rcall	.-2232   	; 0x264 <lcd_string>
      b1c:	61 e0       	ldi	r22, 0x01	; 1
@@ -1983,7 +1983,7 @@ int main(void) // main method: initialization + loop
      b5c:	80 e0       	ldi	r24, 0x00	; 0
      b5e:	90 db       	rcall	.-2272   	; 0x280 <lcd_gotoxy>
 						lcd_string("  [S4] Go!!     ");
-     b60:	84 e5       	ldi	r24, 0x54	; 84
+     b60:	83 e5       	ldi	r24, 0x53	; 83
      b62:	93 e0       	ldi	r25, 0x03	; 3
      b64:	7f db       	rcall	.-2306   	; 0x264 <lcd_string>
      b66:	61 e0       	ldi	r22, 0x01	; 1
@@ -2067,7 +2067,7 @@ int main(void) // main method: initialization + loop
             {
                 lcd_gotoxy(14, 1);
      bf0:	47 db       	rcall	.-2418   	; 0x280 <lcd_gotoxy>
-     bf2:	87 e7       	ldi	r24, 0x77	; 119
+     bf2:	86 e7       	ldi	r24, 0x76	; 118
      bf4:	93 e0       	ldi	r25, 0x03	; 3
      bf6:	36 db       	rcall	.-2452   	; 0x264 <lcd_string>
                 lcd_string  ("OK");

@@ -28,6 +28,8 @@ volatile struct time section = { 0, 0, 0 }; // 시간 설정 이후부터 흐르는 시간
 volatile char mode; // enum 상수에 정의된 모드를 받아주는 임시변수
 volatile double kcal; // 소모한 칼로리의 양
 
+
+
 enum { // mode 변수에 들어가는 상수
 	NO_MODE, // 0
 	START_MODE, // 1
@@ -68,7 +70,7 @@ ISR(TIMER0_OVF_vect) // 1) 오버플로우 통한 1초의 계산 및 단위 초기화 설정 2) 운�
 				section.seconds = 0;
 				if( ++section.minute == 60 ) {
 					section.minute = 0;
-					if( ++section.hour == 24 )	current.hour = 0; // ? why current hour
+					if( ++section.hour == 24 )	section.hour = 0;
 				}
 			}
 			// 타이머 내에서 단위시간에 근거한 속도 당 칼로리 소비량
@@ -112,11 +114,13 @@ void start_healthcare(void) // 헬스 케어 시스템을 LED, DC모터, LCD의 초기 구동과
 
 	for( i = 0; i < 3; i++ ) { // 1초씩 3번 반복한다.
 		lcd_command_write(LCD_ON); // LCD를 0.5초 동안 켜라
-		led_light(LED_ALL); // 모든 LED를 0.5초 동안 켜라
+		//led_light(LED_ALL); // 모든 LED를 0.5초 동안 켜라
+		led_light(0);
 		_delay_ms(500); 
 		//상태반전
 		lcd_command_write(LCD_OFF); // LCD를 0.5초 동안 꺼라
-		led_light(0); // 아무 LED로 0.5초간 켜지 마라
+		//led_light(0); // 아무 LED로 0.5초간 켜지 마라
+		led_light(LED_ALL);
 		_delay_ms(500);
 	}
 	dcmotor_spin(0); // 3초 지난후 모터 스톱
@@ -152,38 +156,41 @@ void time_setting(void)
             // 시간 자리수 변경
 			if( key == KEY_UP ) { // ▒ ▒ [0] [1] : [3] [4] : [6] [7] ▒ ▒
 				switch( pos ) {
-					case 0 : // [0]
+					// Hour
+					case 0 : // [0]: 0>1>2>0
 						if( current.hour < 20 )	current.hour += 10;
 						else						current.hour = 0; // hrs > 20 -> 0(Reset)
-						lcd_data_write(current.hour / 10 + 0x30); // 0x30 in ASCII code = '0' / 한자리만 표시
+						lcd_data_write(current.hour / 10 + 0x30); // 0x30 in ASCII code = '0' / 시의 십의 자리만 출력
 						break;
-					case 1 : // [1]
-						if( (current.hour / 10) < 2 )	tmp = ++tmp % 10;
-						else								tmp = ++tmp % 4;
-						current.hour = (current.hour / 10) * 10 + tmp;
-						lcd_data_write(tmp + 0x30);
+					case 1 : // [1]: 0>1>2>3>0
+						if( (current.hour / 10) < 2 )	tmp = ++tmp % 10; // 01시 ~ 19시, tmp는 시의 일의 자리를 저장하는 임시변수
+						else								tmp = ++tmp % 4; // 21시 ~ 23시
+						current.hour = (current.hour / 10) * 10 + tmp; // 시 전체를 저장(시의 십의 자리 + 시의 일의 자리)
+						lcd_data_write(tmp + 0x30); // 시의 일의 자리만 표시
 						break;
 
+					// Minute
 					case 3 : // [3]
-						if( current.minute < 50 )	current.minute += 10;
+						if( current.minute < 50 )	current.minute += 10; // 1~5
 						else							current.minute = 0;
-						lcd_data_write(current.minute / 10 + 0x30);
+						lcd_data_write(current.minute / 10 + 0x30); // 분의 시의 자리만 출력
 						break;
 					case 4 : // [4]
-						tmp = ++tmp % 10;
-						current.minute = (current.minute / 10) * 10 + tmp;
-						lcd_data_write(tmp + 0x30);
+						tmp = ++tmp % 10; // temp에는 분의 일의 자리를 저장한다
+						current.minute = (current.minute / 10) * 10 + tmp; // 분 전체를 저장(분의 십의 자리 + 분의 일의 자리)
+						lcd_data_write(tmp + 0x30); // 분의 일의 자리만 출력
 						break;
 
+						// Second
 					case 6 : // [6]
 						if( current.seconds < 50 )	current.seconds += 10;
 						else							current.seconds = 0;
-						lcd_data_write(current.seconds / 10 + 0x30);
+						lcd_data_write(current.seconds / 10 + 0x30); // 초의 십의 자리만 출력
 						break;
 					case 7 : // [7]
 						tmp = ++tmp % 10;
-						current.seconds = (current.seconds / 10) * 10 + tmp;
-						lcd_data_write(tmp + 0x30);
+						current.seconds = (current.seconds / 10) * 10 + tmp; // 초 전체를 저장(초의 십의 자리 + 초의 일의 자리)
+						lcd_data_write(tmp + 0x30); // 초의 일의 자리만 출력
 						break;
 				}
 
@@ -213,11 +220,12 @@ void init_screen(void)
 	lcd_string("  Health Care   "); //써라
 	lcd_gotoxy(0, 1); // 다음줄로 가서
 	printf("    %02d:%02d:%02d    ", current.hour, current.minute, current.seconds); // 현재 시간을 형식에 맞게 써라(화면 구동후, 인터럽트가 구동되면서 흐르기 시작하는 시간)
+	
 }
 
 int main(void)
 {
-	unsigned char oldsec = 0xFF; // 256
+	unsigned char oldsec = 0xFF; // MAX: 256
 	unsigned char key = 0; // 어떠한 스위치의 입력도 받지 않은 상태
 	
 	/* constructor */
@@ -234,9 +242,9 @@ int main(void)
 	sei(); // 인터럽트가 허용되면서 타이머가 돌아가기 시작할 것이다.
 
 	while( 1 ) { // 폴링방식, 스위치 입력검사, 해당명령 수행
-		key = getkey(key); // 키 값을 읽음("키 값을 주고 키 값을 읽음", 초기 상태는 0)
-		if( key_flag ) { // 성공적 키 입력의 확인 플래그 체크
-			switch( key ) { // 키 입력에 따른 명령 분리 -> (1)키 값에 따른 제어, (2) 제어 상황에 따른 LCD출력
+		key = getkey(key); // 키 값을 읽음("키 값을 주고 키 값을 읽음", 초기 상태는 0) -> switch구문에서 서로 다른 키 값을 받기 위해서 설정
+		if( key_flag ) { // 성공적 키 입력의 확인 플래그 체크(이전 키 값과 다른 키 값이 들어오면)
+			switch( key ) { // (그제서야)키 입력에 따른 명령 분리 -> (1)키 값에 따른 제어, (2) 제어 상황에 따른 LCD출력
 				// 시작 키
 				case KEY_START :
 					if( mode == NO_MODE ) { // 현재 상태가 시작도 정지도 아닌 (초기) 모드라면
@@ -260,9 +268,11 @@ int main(void)
 						
 						lcd_gotoxy(0, 0); //lcd 첫째라인의 출력
 						printf("Time    %02d:%02d:%02d", section.hour, section.minute, section.seconds); // 운동 소모 시간
+						
+
 						lcd_gotoxy(0, 1); // lcd둘째 라인의 출력
 						printf("Calorie %4.1fKcal", kcal); // 칼로리(ISR내에서 1초당 누적적으로 이루어짐)
-
+						
 						mode = STOP_MODE; // 정지키의 입력에 따른 출력을 수행하고 종료되면, 정지모드가 되면서 스위치 구문을 빠져나간다(할거 다하고 빠져나간다)
 					}
 					break;
@@ -286,8 +296,9 @@ int main(void)
 
 		lcd_gotoxy(10, 0); // 첫줄 10번째 칸으로 가서 업데이트 된 속도를 출력
 		printf("%2d", velocity); // 정수형 2칸
+		
 
-		led_light((unsigned char)(velocity / 6.2)); // led값으로도 속도상황을 출력(단, LED의 갯수를 고려하여 계산한 변수를 전달)
+		led_light((unsigned char)(8 - (velocity / 6.2))); // led값으로도 속도상황을 출력(단, LED의 갯수를 고려하여 계산한 변수를 전달)
 		}
 		
 		// 실시간 시간의 표시

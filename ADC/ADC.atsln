@@ -9,6 +9,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ADCInterrupt", "ADCInterrup
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Two1KResistor", "Two1KResistor\Two1KResistor.cproj", "{437A5644-7055-49C3-8999-223EC8C11B5D}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "PotentionMeter_Serial", "PotentionMeter_Serial\PotentionMeter_Serial.cproj", "{F9317F52-1E62-48CD-A21A-C12B8DE8ED39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -27,6 +29,10 @@ Global
 		{437A5644-7055-49C3-8999-223EC8C11B5D}.Debug|AVR.Build.0 = Debug|AVR
 		{437A5644-7055-49C3-8999-223EC8C11B5D}.Release|AVR.ActiveCfg = Release|AVR
 		{437A5644-7055-49C3-8999-223EC8C11B5D}.Release|AVR.Build.0 = Release|AVR
+		{F9317F52-1E62-48CD-A21A-C12B8DE8ED39}.Debug|AVR.ActiveCfg = Debug|AVR
+		{F9317F52-1E62-48CD-A21A-C12B8DE8ED39}.Debug|AVR.Build.0 = Debug|AVR
+		{F9317F52-1E62-48CD-A21A-C12B8DE8ED39}.Release|AVR.ActiveCfg = Release|AVR
+		{F9317F52-1E62-48CD-A21A-C12B8DE8ED39}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

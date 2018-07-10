@@ -18,8 +18,8 @@ int main(void)
 
     while (1) 
     {
-		ADCSRA = 0xC7; // 0xC7
-		while ((ADCSRA & 0x40) == 1); // 쓰고 있는 중에는 대기
+		ADCSRA = 0xC7;
+		while ((ADCSRA & 0x40) == 1); // wait while writing
 		ad_val = (int)(ADCL) + ((int)(ADCH << 8));
 
 		if (ad_val <= 128)
@@ -40,4 +40,3 @@ int main(void)
 			PORTB = 0x80;
     }
 }
-
