@@ -1,24 +1,21 @@
-/*
- * BlinkTest.c
- *
- * Created: 2018-06-07 오후 7:52:07
- * Author : Woo
- */ 
-
 #define F_CPU 16000000L 
 #include <avr/io.h>
 #include <util/delay.h>
 
+// change to use define directive on purpose
+#define LED_OUTPUT (DDRB = 0XFF)
+#define LED_PORT PORTB
 
 int main(void)
 {
-	DDRB = 0xff;
+	LED_OUTPUT; // set port as output
     /* Replace with your application code */
     while (1) 
     {
-		PORTB = 0xFF;
+        // try to use pin in a diverse way
+		LED_PORT = 1;
 		_delay_ms(500);
-		PORTB = 0x00;
+		LED_PORT = 0;
 		_delay_ms(500);
     }
 	return 0;

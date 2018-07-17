@@ -19,7 +19,7 @@ void serial_string(char *str)
 // 시리얼 데이터 수신
 unsigned char serial_receive(void)
 {
-	while ( !ㄴ(UCSR1A & (1 << RXC1)) );
+	while ( !(UCSR1A & (1 << RXC1)) );
 
 	return UDR1; // UDR에 저장된 값을 읽어 오는 것이 수신의 최종단계
 }

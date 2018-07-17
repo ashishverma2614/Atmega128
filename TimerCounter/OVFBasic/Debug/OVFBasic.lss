@@ -3,31 +3,31 @@ OVFBasic.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  0000018c  2**0
+  0 .data         00000000  00800100  00800100  000001a6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000118  00000000  00000000  00000074  2**1
+  1 .text         00000132  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000001  00800100  00800100  0000018c  2**0
+  2 .bss          00000002  00800100  00800100  000001a6  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000018c  2**0
+  3 .comment      00000030  00000000  00000000  000001a6  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001bc  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000001d8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000030  00000000  00000000  000001fc  2**0
+  5 .debug_aranges 00000030  00000000  00000000  00000218  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000085f  00000000  00000000  0000022c  2**0
+  6 .debug_info   00000859  00000000  00000000  00000248  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007bc  00000000  00000000  00000a8b  2**0
+  7 .debug_abbrev 000007c1  00000000  00000000  00000aa1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000028a  00000000  00000000  00001247  2**0
+  8 .debug_line   0000028b  00000000  00000000  00001262  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000054  00000000  00000000  000014d4  2**2
+  9 .debug_frame  00000058  00000000  00000000  000014f0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003d8  00000000  00000000  00001528  2**0
+ 10 .debug_str    000003d4  00000000  00000000  00001548  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000003c  00000000  00000000  00001900  2**0
+ 11 .debug_loc    00000049  00000000  00000000  0000191c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000020  00000000  00000000  0000193c  2**0
+ 12 .debug_ranges 00000020  00000000  00000000  00001965  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -122,11 +122,11 @@ Disassembly of section .text:
   a0:	1d 92       	st	X+, r1
 
 000000a2 <.do_clear_bss_start>:
-  a2:	a1 30       	cpi	r26, 0x01	; 1
+  a2:	a2 30       	cpi	r26, 0x02	; 2
   a4:	b2 07       	cpc	r27, r18
   a6:	e1 f7       	brne	.-8      	; 0xa0 <.do_clear_bss_loop>
-  a8:	33 d0       	rcall	.+102    	; 0x110 <main>
-  aa:	34 c0       	rjmp	.+104    	; 0x114 <_exit>
+  a8:	40 d0       	rcall	.+128    	; 0x12a <main>
+  aa:	41 c0       	rjmp	.+130    	; 0x12e <_exit>
 
 000000ac <__bad_interrupt>:
   ac:	a9 cf       	rjmp	.-174    	; 0x0 <__vectors>
@@ -134,7 +134,7 @@ Disassembly of section .text:
 000000ae <__vector_16>:
 
 typedef unsigned char unit8_t;
-unit8_t count = 0;
+//unit8_t tick0_OvF = 0;
 
 ISR(TIMER0_OVF_vect)
 {
@@ -144,95 +144,104 @@ ISR(TIMER0_OVF_vect)
   b4:	0f 92       	push	r0
   b6:	11 24       	eor	r1, r1
   b8:	8f 93       	push	r24
-	count++; // max = 125, total 126cnt
-  ba:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
-  be:	8f 5f       	subi	r24, 0xFF	; 255
-  c0:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+  ba:	9f 93       	push	r25
+	volatile static unsigned int tick0_OVF; // better way than using global var
+	tick0_OVF++; // max = 125, total 126cnt
+  bc:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+  c0:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <_edata+0x1>
+  c4:	01 96       	adiw	r24, 0x01	; 1
+  c6:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <_edata+0x1>
+  ca:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
 	
 	// how to make 1sec by using 8bit OVF T/C
-	if (count == 125) // 8ms * 125 = 1sec(1000ms)
-  c4:	8d 37       	cpi	r24, 0x7D	; 125
-  c6:	61 f4       	brne	.+24     	; 0xe0 <__vector_16+0x32>
+	if (tick0_OVF == 125) // 8ms * 125 = 1sec(1000ms)
+  ce:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+  d2:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <_edata+0x1>
+  d6:	8d 37       	cpi	r24, 0x7D	; 125
+  d8:	91 05       	cpc	r25, r1
+  da:	71 f4       	brne	.+28     	; 0xf8 <__vector_16+0x4a>
 	{
-		switch (PINB)
-  c8:	86 b3       	in	r24, 0x16	; 22
-  ca:	88 23       	and	r24, r24
-  cc:	19 f0       	breq	.+6      	; 0xd4 <__vector_16+0x26>
-  ce:	8f 3f       	cpi	r24, 0xFF	; 255
-  d0:	21 f0       	breq	.+8      	; 0xda <__vector_16+0x2c>
-  d2:	04 c0       	rjmp	.+8      	; 0xdc <__vector_16+0x2e>
+		switch (PINB) // read the value of PINB
+  dc:	86 b3       	in	r24, 0x16	; 22
+  de:	88 23       	and	r24, r24
+  e0:	19 f0       	breq	.+6      	; 0xe8 <__vector_16+0x3a>
+  e2:	8f 3f       	cpi	r24, 0xFF	; 255
+  e4:	21 f0       	breq	.+8      	; 0xee <__vector_16+0x40>
+  e6:	04 c0       	rjmp	.+8      	; 0xf0 <__vector_16+0x42>
 		{
-			case 0x00: // PINB = 0x00, all off
+			case 0x00: // PINB = 0x00, if PINB is off then turn on
 				PORTB = 0xFF;
-  d4:	8f ef       	ldi	r24, 0xFF	; 255
-  d6:	88 bb       	out	0x18, r24	; 24
+  e8:	8f ef       	ldi	r24, 0xFF	; 255
+  ea:	88 bb       	out	0x18, r24	; 24
 				break;
-  d8:	01 c0       	rjmp	.+2      	; 0xdc <__vector_16+0x2e>
-			case 0xFF: // PINB = 0xFF, all on
+  ec:	01 c0       	rjmp	.+2      	; 0xf0 <__vector_16+0x42>
+			case 0xFF: // PINB = 0xFF, if PINB is on then turn off
 				PORTB = 0x00;
-  da:	18 ba       	out	0x18, r1	; 24
+  ee:	18 ba       	out	0x18, r1	; 24
 				break;
 		}
-		count = 0; // reset counter
-  dc:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
+		tick0_OVF = 0; // reset counter
+  f0:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <_edata+0x1>
+  f4:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
 	}
 	TCNT0 = 131; // enforce to reset TCNT0, which means to adjust the value of start 
-  e0:	83 e8       	ldi	r24, 0x83	; 131
-  e2:	82 bf       	out	0x32, r24	; 50
+  f8:	83 e8       	ldi	r24, 0x83	; 131
+  fa:	82 bf       	out	0x32, r24	; 50
 				// 255 - 131  + 1 = 125
 }
-  e4:	8f 91       	pop	r24
-  e6:	0f 90       	pop	r0
-  e8:	0f be       	out	0x3f, r0	; 63
-  ea:	0f 90       	pop	r0
-  ec:	1f 90       	pop	r1
-  ee:	18 95       	reti
+  fc:	9f 91       	pop	r25
+  fe:	8f 91       	pop	r24
+ 100:	0f 90       	pop	r0
+ 102:	0f be       	out	0x3f, r0	; 63
+ 104:	0f 90       	pop	r0
+ 106:	1f 90       	pop	r1
+ 108:	18 95       	reti
 
-000000f0 <INIT>:
+0000010a <INIT>:
 }
 
 void INIT(void)
 {
 	/* Port Setting */
 	cbi(SREG, 7); // same as cli(), all INT disabled
-  f0:	8f b7       	in	r24, 0x3f	; 63
-  f2:	8f 77       	andi	r24, 0x7F	; 127
-  f4:	8f bf       	out	0x3f, r24	; 63
+ 10a:	8f b7       	in	r24, 0x3f	; 63
+ 10c:	8f 77       	andi	r24, 0x7F	; 127
+ 10e:	8f bf       	out	0x3f, r24	; 63
 	PORTB = 0xFF; // set PB as output
-  f6:	8f ef       	ldi	r24, 0xFF	; 255
-  f8:	88 bb       	out	0x18, r24	; 24
+ 110:	8f ef       	ldi	r24, 0xFF	; 255
+ 112:	88 bb       	out	0x18, r24	; 24
 	DDRB = 0xFF; // turn on all LED at first
-  fa:	87 bb       	out	0x17, r24	; 23
+ 114:	87 bb       	out	0x17, r24	; 23
 
 	/* Timer Setting  */
 	TCCR0 = (1 << CS02) | (1 << CS01) | (1 << CS00); // set Timer Counter Control Reg., pre-scale: 1024(approx. 64us)
-  fc:	87 e0       	ldi	r24, 0x07	; 7
-  fe:	83 bf       	out	0x33, r24	; 51
+ 116:	87 e0       	ldi	r24, 0x07	; 7
+ 118:	83 bf       	out	0x33, r24	; 51
 	//TCCR0 = 0x07;
 	TCNT0 = 131; // set start value, 1 / clkt0 = 64us, 64us X 125 = 8ms
- 100:	83 e8       	ldi	r24, 0x83	; 131
- 102:	82 bf       	out	0x32, r24	; 50
+ 11a:	83 e8       	ldi	r24, 0x83	; 131
+ 11c:	82 bf       	out	0x32, r24	; 50
 	TIMSK = (1 << TOIE0); // set Timer0 Overflow Interrupt Enable
- 104:	81 e0       	ldi	r24, 0x01	; 1
- 106:	87 bf       	out	0x37, r24	; 55
+ 11e:	81 e0       	ldi	r24, 0x01	; 1
+ 120:	87 bf       	out	0x37, r24	; 55
 	sbi(SREG, 7); // global INT enable
- 108:	8f b7       	in	r24, 0x3f	; 63
- 10a:	80 68       	ori	r24, 0x80	; 128
- 10c:	8f bf       	out	0x3f, r24	; 63
- 10e:	08 95       	ret
+ 122:	8f b7       	in	r24, 0x3f	; 63
+ 124:	80 68       	ori	r24, 0x80	; 128
+ 126:	8f bf       	out	0x3f, r24	; 63
+ 128:	08 95       	ret
 
-00000110 <main>:
+0000012a <main>:
 
 void INIT(void);
 
 int main(void)
 {
 	INIT();
- 110:	ef df       	rcall	.-34     	; 0xf0 <INIT>
- 112:	ff cf       	rjmp	.-2      	; 0x112 <main+0x2>
+ 12a:	ef df       	rcall	.-34     	; 0x10a <INIT>
+ 12c:	ff cf       	rjmp	.-2      	; 0x12c <main+0x2>
 
-00000114 <_exit>:
- 114:	f8 94       	cli
+0000012e <_exit>:
+ 12e:	f8 94       	cli
 
-00000116 <__stop_program>:
- 116:	ff cf       	rjmp	.-2      	; 0x116 <__stop_program>
+00000130 <__stop_program>:
+ 130:	ff cf       	rjmp	.-2      	; 0x130 <__stop_program>

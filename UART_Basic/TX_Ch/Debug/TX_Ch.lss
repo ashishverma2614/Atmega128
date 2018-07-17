@@ -166,8 +166,8 @@ int main(void)
 
 	__builtin_avr_delay_cycles(__ticks_dc);
   c2:	2f ef       	ldi	r18, 0xFF	; 255
-  c4:	83 ed       	ldi	r24, 0xD3	; 211
-  c6:	90 e3       	ldi	r25, 0x30	; 48
+  c4:	84 e3       	ldi	r24, 0x34	; 52
+  c6:	9c e0       	ldi	r25, 0x0C	; 12
   c8:	21 50       	subi	r18, 0x01	; 1
   ca:	80 40       	sbci	r24, 0x00	; 0
   cc:	90 40       	sbci	r25, 0x00	; 0

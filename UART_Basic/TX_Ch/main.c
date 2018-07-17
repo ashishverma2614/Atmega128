@@ -27,7 +27,7 @@ int main(void)
     while (1) 
     {
 		TX0_ch('A'); // send ch by 1sec
-		_delay_ms(1000);
+		_delay_ms(250);
     }
 }
 

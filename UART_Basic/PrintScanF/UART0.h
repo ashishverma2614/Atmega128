@@ -4,12 +4,10 @@
 typedef unsigned char unit8_t;
 
 void UART0_init(void);
-void UART0_transmit(char data);
-unsigned char UART0_receive(void);
-void UART0_print_string(char str[]);
-void UART0_print_1_byte_number(unit8_t n);
-void UART0_print_float(float f);
-
-
+void TX0_ch(char);
+unsigned char RX0_ch(void);
+void TX0_str(const unsigned char*);
+void TX0_1byte_num(unit8_t n);
+void TX0_float(float);
 
 #endif /* UART0_H_ */

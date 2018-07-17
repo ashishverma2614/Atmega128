@@ -151,7 +151,7 @@ Disassembly of section .text:
 char fndPattern[] = {0x3F, 0x06, 0x5B, 0x4F, 0x66 ,0x6D, 0x7C, 0x07 ,0x7F, 0x6F};
 unsigned int cnt = 0;
 
-ISR(TIMER0_OVF_vect)
+ISR(TIMER0_OVF_vect) // timer for counting number
 {
   c8:	1f 92       	push	r1
   ca:	0f 92       	push	r0
@@ -228,7 +228,7 @@ void INIT(void)
 00000140 <displayFnd>:
 }
 
-void displayFnd(unsigned count)
+void displayFnd(unsigned count) // dynamic display
 {
  140:	ac 01       	movw	r20, r24
 	PORTC = (FND1_ON | FND2_OFF);

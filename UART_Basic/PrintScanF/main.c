@@ -5,9 +5,12 @@
 #include <stdio.h>
 #include "UART0.h"
 
+#define UBRR_9600_1X 103
+//#define UBRR_9600_2x 207
+
 // instances of input and output for printf/scanf
-FILE OUTPUT = FDEV_SETUP_STREAM(UART0_transmit, NULL, _FDEV_SETUP_WRITE);
-FILE INPUT = FDEV_SETUP_STREAM(NULL, UART0_receive, _FDEV_SETUP_READ);
+FILE OUTPUT = FDEV_SETUP_STREAM(TX0_ch, NULL, _FDEV_SETUP_WRITE);
+FILE INPUT = FDEV_SETUP_STREAM(NULL, RX0_ch, _FDEV_SETUP_READ);
 
 int main(void)
 {
@@ -17,7 +20,7 @@ int main(void)
 	stdout = &OUTPUT;
 	stdin = &INPUT;
 
-	UART0_init();
+	UART0_INIT(UBRR_9600_1X);
 
 	printf("\n");
 	printf("Current Counter Value: ");
@@ -25,7 +28,7 @@ int main(void)
 
 	while (1)
 	{
-		scanf("%s", buf);
+		scanf("%s", buf); // get input using scanf()
 
 		if (strcasecmp(buf, "DOWN") == 0) // use strcasecmp instead
 		{

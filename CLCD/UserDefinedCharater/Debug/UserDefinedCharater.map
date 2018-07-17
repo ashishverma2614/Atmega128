@@ -413,23 +413,23 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xe8a
+.debug_info     0x00000000      0xe8e
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_info    0x00000780      0x587 CLCD.o
- .debug_info    0x00000d07      0x183 main.o
+ .debug_info    0x00000780      0x58b CLCD.o
+ .debug_info    0x00000d0b      0x183 main.o
 
-.debug_abbrev   0x00000000      0x979
+.debug_abbrev   0x00000000      0x97b
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_abbrev  0x00000718      0x189 CLCD.o
- .debug_abbrev  0x000008a1       0xd8 main.o
+ .debug_abbrev  0x00000718      0x18b CLCD.o
+ .debug_abbrev  0x000008a3       0xd8 main.o
 
-.debug_line     0x00000000      0x49f
+.debug_line     0x00000000      0x49e
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x169 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_line    0x00000169      0x2a4 CLCD.o
- .debug_line    0x0000040d       0x92 main.o
+ .debug_line    0x00000169      0x2a3 CLCD.o
+ .debug_line    0x0000040c       0x92 main.o
 
 .debug_frame    0x00000000       0xa4
  *(.debug_frame)

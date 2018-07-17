@@ -5,23 +5,28 @@
 
 typedef unsigned char u_char;
 
-#define FUNCSET 0x28 // Function Set
-#define ENTMODE 0x06 // Entry Mode Set
-#define ALLCLR 0x01 // All Clear
-#define DISPON 0x0c // Display On
+/* Defines for CLCD */
+#define FUNCSET	0x28 // Function Set
+#define ENTMODE	0x06 // Entry Mode Set
+#define ALLCLR	0x01 // All Clear
+#define DISPON	0x0c // Display On
 #define CURHOME	0x02
-#define LINE2 0xC0 // 2nd Line Move
+#define LINE2	0xC0 // 2nd Line Move
 #define ENH  PORTC |= 0x04
 #define ENL  PORTC &= 0xFB
 
-#define CMD_NEXT	0x01
+/* Defines for MP3 CMD */
+#define CMD_NEXT		0x01
 #define CMD_PRE		0x02
-#define CMD_PLAY	0x0d
+#define CMD_PLAY		0x0d
 #define CMD_PAUSE	0x0E
-#define CMD_STOP	0x16
+#define CMD_STOP		0x16
 #define CMD_TF		0x09
-#define CMD_VOL 0x10
-
+#define CMD_VOL		0x10
+///////////////////////////////////////////////////////////////////////////////
+void PortInit(void);
+void EXIntInit(void);
+void TimerInit(void);
 void LCD_init(void); // LCD 초기화
 void LCD_String(char []); // 문자열 출력
 void Busy(void); // 2ms 딜레이 함수
@@ -47,7 +52,7 @@ ISR(INT4_vect) // UP
 	}
 }
 
-ISR(INT5_vect)
+ISR(INT5_vect) // select
 {
 	sel_menu = menu_pos + cur_pos; //현재 메뉴의 좌표와 커서 좌표를 더해서 선택 메뉴를 구성한다
 	tx = 1;
@@ -63,10 +68,11 @@ ISR(INT6_vect) // DN
 	}
 }
 
-ISR(ADC_vect) // ADV int free reuuning mode
+ISR(ADC_vect) // read potention meter to adjust volume
 {
 	
 }
+
 void PortInit(void)
 {
 	DDRC = 0xFF; // LCD Port
@@ -78,7 +84,7 @@ void EXIntInit(void)
 	EIMSK = 0b01110000; // INT4 ~ INT6 External Interrupt Enable
 }
 
-void TimerInit(void)
+void TimerInit(void) // for debouncing
 {
 	TCCR1B = 0x05;	// Prescaler : 1024
 	TIMSK = 0x04;	// Timer1 OVF. Interrupt Enable
@@ -176,14 +182,12 @@ void Data(u_char byte)
 	_delay_us(1);
 	ENL; // E = 0
 }
-// Busy Flag Check -> 일반적인 BF를 체크하는 것이 아니라
-// 일정한 시간 지연을 이용한다.
+
 void Busy(void)
 {
 	_delay_ms(2);
 }
 
-// 문자열 출력 함수
 void LCD_String(char str[])
 {
 	char i=0;

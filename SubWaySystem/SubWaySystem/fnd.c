@@ -18,7 +18,7 @@ ISR(TIMER2_OVF_vect)
 	FND_OUT = 0xF0; // pb[7:4]에 1을 전부 쓴다 -> 끈다
 
 	if( fnd_flag ) { // 플래그 체크
-		FND_OUT = fnd_buf[digit] << 4; // 1개 fnd의 출력: 1 byte씩 buf값을 (빠르게) 이동시켜서 출력한다
+		FND_OUT = fnd_buf[digit] << 4; // *1개 fnd의 출력: 1 byte씩 buf값을 (빠르게) 이동시켜서 출력한다
 		FND_OUT |= 0x04 << digit; // 2개 fnd의 출력: PB2와 PB3을 번갈아 가면서 출력한다
 	}
 

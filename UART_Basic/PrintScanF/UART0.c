@@ -1,44 +1,46 @@
 ﻿#include <avr/io.h>
-#include <stdio.h>
+#include <stdio.h> // to use sprintf()
 
 typedef unsigned char unit8_t;
-void UART0_init(void)
+
+void UART0_INIT(unsigned int ubrr0)
 {
-	UBRR0H = 0x00;
-	UBRR0L = 207; // 9,600(2X)bps
-	
-	UCSR0A |= (1 << U2X0); // 2x TRX mode
-	UCSR0B |= (1 << TXEN0) | (1 << RXEN0); // TX/RX enable
-	UCSR0C |= 0x06; // async mode, no-parity, 1stop-bit, 8 data bit
+	UBRR0H = (unsigned char) (ubrr0 >> 8);
+	UBRR0L = (unsigned char) (ubrr0);
+	UCSR0B = (1 << TXEN0) | (1 << RXEN0);
+	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
 }
 
-void UART0_transmit(char data)
+
+void TX0_ch(char data)
 {
-	while(!(UCSR0A & (1 << UDRE0))); // check transmit status
-	UDR0 = data; // TX data
+	while(!(UCSR0A & (1 << UDRE0)));
+	UDR0 = data;
 }
 
-unsigned char UART0_receive(void)
+unsigned char RX0_ch(void)
 {
-	while(!(UCSR0A & (1 << RXC0))); // check receive status
+	while(!(UCSR0A & (1 << RXC0)));
 	return UDR0;
 }
 
-void UART0_print_string(char str[])
+void TX0_str(const unsigned char *str)
 {
-	for (int i = 0; str[i]; i++)
-		UART0_transmit(str[i]);
+	while(*str)
+	{
+		TX0_ch(*str++);
+	}
 }
 
-void UART0_print_float(float f)
+void TX0_float(float f)
 {
 	char numString[20] = "0";
 	sprintf(numString, "%f", f);
-	UART0_print_string(numString);
+	TX0_str(numString);
 
 }
 
-void UART0_print_1_byte_number(unit8_t n)
+void TX0_1byte_num(unit8_t n)
 {
 	char numString[4] = "0";
 	/*
@@ -59,5 +61,5 @@ void UART0_print_1_byte_number(unit8_t n)
 		UART0_transmit(numString[i]);
 	}*/
 	sprintf(numString, "%d", n);
-	UART0_print_string(numString);
+	TX0_str(numString);
 }

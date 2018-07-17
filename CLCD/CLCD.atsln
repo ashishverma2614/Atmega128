@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD", "CLCD\CLCD.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
@@ -13,7 +13,9 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "CLCD4bit_Shift2", "CLCD4bit
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UserDefinedCharater", "UserDefinedCharater\UserDefinedCharater.cproj", "{B65A7EB8-12DC-4FC7-842A-E7059E818E79}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "8bitControlLibrary", "8bitControlLibrary\8bitControlLibrary.cproj", "{B0848A4B-A7EA-437A-A6EA-3CB28A309337}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "4bit_CLCD_Library", "4bit_CLCD_Library\4bit_CLCD_Library.cproj", "{EA06FE4A-0963-48E3-942D-250D9E449553}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "EchoTest_USART", "EchoTest_USART\EchoTest_USART.cproj", "{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +43,14 @@ Global
 		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Debug|AVR.Build.0 = Debug|AVR
 		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Release|AVR.ActiveCfg = Release|AVR
 		{B65A7EB8-12DC-4FC7-842A-E7059E818E79}.Release|AVR.Build.0 = Release|AVR
-		{B0848A4B-A7EA-437A-A6EA-3CB28A309337}.Debug|AVR.ActiveCfg = Debug|AVR
-		{B0848A4B-A7EA-437A-A6EA-3CB28A309337}.Debug|AVR.Build.0 = Debug|AVR
-		{B0848A4B-A7EA-437A-A6EA-3CB28A309337}.Release|AVR.ActiveCfg = Release|AVR
-		{B0848A4B-A7EA-437A-A6EA-3CB28A309337}.Release|AVR.Build.0 = Release|AVR
+		{EA06FE4A-0963-48E3-942D-250D9E449553}.Debug|AVR.ActiveCfg = Debug|AVR
+		{EA06FE4A-0963-48E3-942D-250D9E449553}.Debug|AVR.Build.0 = Debug|AVR
+		{EA06FE4A-0963-48E3-942D-250D9E449553}.Release|AVR.ActiveCfg = Release|AVR
+		{EA06FE4A-0963-48E3-942D-250D9E449553}.Release|AVR.Build.0 = Release|AVR
+		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Debug|AVR.ActiveCfg = Debug|AVR
+		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Debug|AVR.Build.0 = Debug|AVR
+		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Release|AVR.ActiveCfg = Release|AVR
+		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

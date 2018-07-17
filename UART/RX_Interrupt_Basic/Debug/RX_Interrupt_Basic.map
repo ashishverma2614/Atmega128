@@ -151,7 +151,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x14e
+.text           0x00000000      0x14a
  *(.vectors)
  .vectors       0x00000000       0x8c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
                 0x00000000                __vector_default
@@ -247,15 +247,15 @@ END GROUP
  .text.__vector_18
                 0x000000a6       0x7c main.o
                 0x000000a6                __vector_18
- .text.INIT     0x00000122       0x24 main.o
+ .text.INIT     0x00000122       0x20 main.o
                 0x00000122                INIT
- .text.main     0x00000146        0x4 main.o
-                0x00000146                main
-                0x0000014a                . = ALIGN (0x2)
+ .text.main     0x00000142        0x4 main.o
+                0x00000142                main
+                0x00000146                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000014a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x0000014a                _exit
-                0x0000014a                exit
+ .fini9         0x00000146        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x00000146                _exit
+                0x00000146                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -274,11 +274,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000014a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x00000146        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000014e                _etext = .
+                0x0000014a                _etext = .
 
-.data           0x00800100        0x0 load address 0x0000014e
+.data           0x00800100        0x0 load address 0x0000014a
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -296,8 +296,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                PROVIDE (__bss_end, .)
-                0x0000014e                __data_load_start = LOADADDR (.data)
-                0x0000014e                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000014a                __data_load_start = LOADADDR (.data)
+                0x0000014a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -395,11 +395,11 @@ END GROUP
  *(.debug_frame)
  .debug_frame   0x00000000       0x9c main.o
 
-.debug_str      0x00000000      0x3db
+.debug_str      0x00000000      0x3d9
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.150/gcc/dev/atmega128a/avr51/crtatmega128a.o
- .debug_str     0x0000027d      0x15e main.o
-                                0x197 (size before relaxing)
+ .debug_str     0x0000027d      0x15c main.o
+                                0x195 (size before relaxing)
 
 .debug_loc      0x00000000       0xde
  *(.debug_loc)

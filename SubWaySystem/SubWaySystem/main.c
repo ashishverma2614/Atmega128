@@ -133,7 +133,7 @@ void select_station(char keyin) // station select mode
 	lcd_string("Station Num : ");
 ///////////////////////////////////////////////////////////////////////////////
 	while( 1 ) { 
-		key = getkey(key); // 정방향(S1)또는 역방향(S2)를 눌러 역 선택
+		key = getkey(key); // 정방향(S1)또는 역방향(S2)를 눌러 역 선택(이전의 키와 다른 키임을 체크)
 		if( key_flag ) { // 정상적 키 입력의 확인
 			switch( key ) { // 키 입력 분류
 				case KEY_1 : // 정방향 이동키
@@ -146,8 +146,8 @@ void select_station(char keyin) // station select mode
                     if (station == 0) station = 16; // 0번쨰 역은 없으므로 마지막으로 돌아간다
                     break;
 
-				case KEY_3 : // (출발)역 선택키
-					if( state == SELECT_START_STATION )
+				case KEY_3 : // 출/도착역 선택
+					if( state == SELECT_START_STATION ) // 출발역 세팅 완료 + 도착역 세팅으로 전환
 					{ // 출발역 결정 모드
 						start_station = station; // 출발역 결정
 						end_station = 1; // 도착역 설정을 위한 도착역의 초기화
@@ -157,7 +157,7 @@ void select_station(char keyin) // station select mode
 						lcd_gotoxy(0, 0);
 						lcd_string(" End   Station  ");
 
-						state = SELECT_END_STATION; // 도착역 모드 진입(도착역 키 값을 다시 받으러 간다)
+						state = SELECT_END_STATION; // 도착역 모드 진입(도착역 키 값을 다시 받으러 간다), 다음else구문 진입
 					}
 					else if( state == SELECT_END_STATION ) 
 					{ // 도착역 결정모드
@@ -182,10 +182,10 @@ void select_station(char keyin) // station select mode
 						lcd_string("Return To First!"); // it implies that selecting station is not the first process
 						_delay_ms(500);
 
-						// 오류가 생기면 출/도착 역이 초기화 된다
+						// 오류가 생기면 출/도착 역이 초기화 된다(Return to first!)
 						start_station = NONE;
 						end_station = NONE;
-						// 메인 화면이 (다시) 호출된다
+						// 메인(초기) 화면이 (다시) 호출된다
 						main_screen();
 
 						state = SELECT_TICKET_TYPE; // 티켓 선택 모드로 다시 진입한다
@@ -198,41 +198,41 @@ void select_station(char keyin) // station select mode
 						//			요금 : Adult = 500 X 거리, Kid = 300 X 거리
 						////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 						distance = end_station - start_station;
-						if( distance < 0 ) 
+						if (distance < 0) // 종착역이 더 왼쪽에 있는 경우
                         {
                             distance *= (-1); //거리의 절댓값
-                            if (distance < 8)
+                            if ( distance < 8 )
+                            {
+                                direction = REWARD; // 8정거장 이하인 경우 역방향 그대로 가면 됨, 거리는 위 계산식 그대로임
+                            }
+                            else // distance > 8: 종착역이 더 왼쪽에 있고 그 거리가 8 이상인경우
+                            {
+                                direction = FORWARD; // 오른쪽으로 가는 것이 나음
+                                distance = 16 - distance; // 16에서 더 먼거리(8이상의 거리)를 빼면 됨
+                            }
+                        }
+                        else // distance > 0 // 종착역이 오른족에 있는 경우
+                        {
+                            if (distance > 8) // 거리가 8 이상이라면 역순으로 가는게 나음
                             {
                                 direction = REWARD;
+                                distance = 16 - distance; // 16에서 더 먼거리(8이상의 거리)를 빼면 됨
                             }
-                            else
+                            else // 거리가 8이하라면
                             {
-                                if (distance == FORWARD)
-                                distance = 16 - distance;
+                                direction = FORWARD; // 정방향으로 계산대로의 거리만큼 가면 됨
                             }
-						}
-						else {
-							if( distance > 8 ) {
-                                direction = FORWARD;
-                                distance = 16 - distance;
-							}
-							else 
-                            {
-                                distance = FORWARD;
-							}
-						}
+                        }
 
-						// 거리값 출력
+						// 최단거리와 요금 출력
 						lcd_gotoxy(0, 0);
                         printf("Distance:%d      ", distance);
-                        // 요금표에 따른 요금 계산
                         fee = fee_tbl[ticket_type % 2] * distance;
 						lcd_gotoxy(0, 1);
-                        //요금 인쇄
                         printf("Fee : %04d Won  ", fee);
-                        
 						_delay_ms(1000); // 다음 화면으로 넘어가기 위한 1초의 지연시간
-                        // 지불요구 및 지불요금 출력
+                        
+                        // 요금 지불모드
 						lcd_gotoxy(0, 0);
 						lcd_string("Insert Money!!  ");
 						lcd_gotoxy(0, 1);
@@ -282,8 +282,8 @@ void train_go(void)
 			lcd_string(" Thanks A Lot!  ");
 		}
         // fnd에 현재 지나가고 있는 역과 현재역과 남은 역 사이의 거리를 (실시간으로) 표시한다
-		fnd_buf[0] = i; // 현재 위치
-		fnd_buf[1] = distance - i; // 남은거리
+		fnd_buf[0] = i; // 이동한 역의 거리
+		fnd_buf[1] = distance - i; // 남은거리(시간)
         
         // 제반 운행 정보를 (관리자의 입장에서) 실시간으로 시리얼 모니터로 받아본다(문항지에서 제시하는 양삭에 맞게)
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -292,15 +292,15 @@ void train_go(void)
 		//		(1)이동시간, (2)남은거리, (3)출발역, 도착역, 현재역, 요금을 터미널에 출력
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		serial_transmit('\f'); // form feed:새로운 화면에서 출력시작
-        sprintf(str, "Time/m        : %d\r\n", distance - i); // 남은거리(현재 위치를 기준으로)
+        sprintf(str, "Time/m        : %d\r\n", distance - i); // 남은시간
         serial_string(str);
-        sprintf(str, "Distance      : %d\r\n", i); // 현재 위치
+        sprintf(str, "Distance      : %d\r\n", i); // 남은역
         serial_string(str);
         sprintf(str, "Start Station : %02d\r\n", start_station); // 출발역
         serial_string(str);
         sprintf(str, "End Station   : %02d\r\n", end_station); // 도착역
         serial_string(str);
-        sprintf(str, "Now Station   : %02d\r\n", pos + 1); // 곧 도착하는 역(현재 위치 + 1)
+        sprintf(str, "Now Station   : %02d\r\n", pos + 1); // 현재역
         serial_string(str);
         sprintf(str, "Money         : %04d\r\n", fee); // 요금
         serial_string(str);
@@ -315,10 +315,10 @@ void train_go(void)
 			else		pos = 15;
 		}
 
-		_delay_ms(1000);
+		_delay_ms(1000); // 반복적으로 1초를 만들어내기 위함
 	}
 	_delay_ms(1000);
-    // i = distance가 되어 루프를 탈출한경우(즉, 거리만큼 이동해서 도착역이 현재역이 되어 도착한 경우)
+    // i = distance 가 되어 루프를 탈출한경우(즉, 거리만큼 이동해서 도착역이 현재역이 되어 도착한 경우)
 	// 제반 요소들을 초기화 한다
     ticket_type = NONE;
 	start_station = NONE;
@@ -365,6 +365,7 @@ int main(void) // main method: initialization + loop
 
 					ticket_type = key; // 현재 받은 키 값(성인인지 꿈나무인지)을 '티켓타입'변수에 저장한다
 					select_station(key); // key1 또는 key2의 값을 받으면, 티켓 설정을 완료하고 "역 선택 모드를 호출한다"
+                                         // 루프 내에서 역 선택 모드의 루프가 돌아감
 				}
 				break;
 
@@ -378,7 +379,7 @@ int main(void) // main method: initialization + loop
 							printf("Change : %04d   ", money - fee);
 						}
 						_delay_ms(1000);
-						// 요금 결정 및 거스름을 받고 출발모드(TRAIN_GO)로 들어간다
+						// 요금 결정 및 거스름을 받고 1초 후에 출발모드(TRAIN_GO)로 들어간다
 
 						lcd_gotoxy(0, 0);
 						lcd_string("  [S4] Go!!     ");
@@ -391,7 +392,7 @@ int main(void) // main method: initialization + loop
 				break;
 
 				case KEY_4 :
-				if( state == TRAIN_GO )	train_go();
+				if( state == TRAIN_GO )	train_go(); // train_go함수의 호출
 				break;
 
 				case KEY_5 :
