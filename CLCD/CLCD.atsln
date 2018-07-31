@@ -15,8 +15,6 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UserDefinedCharater", "User
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "4bit_CLCD_Library", "4bit_CLCD_Library\4bit_CLCD_Library.cproj", "{EA06FE4A-0963-48E3-942D-250D9E449553}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "EchoTest_USART", "EchoTest_USART\EchoTest_USART.cproj", "{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -47,10 +45,6 @@ Global
 		{EA06FE4A-0963-48E3-942D-250D9E449553}.Debug|AVR.Build.0 = Debug|AVR
 		{EA06FE4A-0963-48E3-942D-250D9E449553}.Release|AVR.ActiveCfg = Release|AVR
 		{EA06FE4A-0963-48E3-942D-250D9E449553}.Release|AVR.Build.0 = Release|AVR
-		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Debug|AVR.ActiveCfg = Debug|AVR
-		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Debug|AVR.Build.0 = Debug|AVR
-		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Release|AVR.ActiveCfg = Release|AVR
-		{55AA6AAA-76A8-4F4C-BFE5-A920537F81E7}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

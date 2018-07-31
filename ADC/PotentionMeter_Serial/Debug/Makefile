@@ -37,8 +37,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../main.c \
-../UART1.c
+../main.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,20 +47,16 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-main.o \
-UART1.o
+main.o
 
 OBJS_AS_ARGS +=  \
-main.o \
-UART1.o
+main.o
 
 C_DEPS +=  \
-main.d \
-UART1.d
+main.d
 
 C_DEPS_AS_ARGS +=  \
-main.d \
-UART1.d
+main.d
 
 OUTPUT_FILE_PATH +=PotentionMeter_Serial.elf
 
@@ -77,8 +72,6 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 

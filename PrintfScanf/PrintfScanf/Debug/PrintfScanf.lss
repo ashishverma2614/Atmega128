@@ -147,8 +147,8 @@ Disassembly of section .text:
   c6:	9c cf       	rjmp	.-200    	; 0x0 <__vectors>
 
 000000c8 <main>:
-FILE OUTPUT = FDEV_SETUP_STREAM(Put_ch, NULL, _FDEV_SETUP_WRITE);
 FILE INPUT = FDEV_SETUP_STREAM(NULL, Get_ch, _FDEV_SETUP_READ);
+
 
 int main(void)
 {

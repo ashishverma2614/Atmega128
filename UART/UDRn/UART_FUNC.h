@@ -8,8 +8,8 @@
 
 #ifndef UART_FUNC_H_
 #define UART_FUNC_H_
-
-void UART_Putch(char ch) ;
+void UART_init(unsigned int);
+void UART_Putch(char ch);
 char UART_Getch(void);
 void UART_Puts(char * str);
 void UART_Gets(char * str);

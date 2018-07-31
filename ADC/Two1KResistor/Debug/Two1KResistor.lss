@@ -146,7 +146,7 @@ int main(void)
 
     while (1) 
     {
-		ADCSRA = 0xC7; // 0xC7
+		ADCSRA = 0xC7;
   b6:	37 ec       	ldi	r19, 0xC7	; 199
 		else if (ad_val <= 768)
 			PORTB = 0x20;
@@ -197,8 +197,8 @@ int main(void)
 		else if (ad_val <= 256)
 			PORTB = 0x02;
   c4:	52 e0       	ldi	r21, 0x02	; 2
-		ADCSRA = 0xC7; // 0xC7
-		while ((ADCSRA & 0x40) == 1); // 쓰고 있는 중에는 대기
+		ADCSRA = 0xC7;
+		while ((ADCSRA & 0x40) == 1); // wait while writing
 		ad_val = (int)(ADCL) + ((int)(ADCH << 8));
 
 		if (ad_val <= 128)
@@ -209,9 +209,9 @@ int main(void)
 
     while (1) 
     {
-		ADCSRA = 0xC7; // 0xC7
+		ADCSRA = 0xC7;
   c8:	36 b9       	out	0x06, r19	; 6
-		while ((ADCSRA & 0x40) == 1); // 쓰고 있는 중에는 대기
+		while ((ADCSRA & 0x40) == 1); // wait while writing
   ca:	86 b1       	in	r24, 0x06	; 6
 		ad_val = (int)(ADCL) + ((int)(ADCH << 8));
   cc:	24 b1       	in	r18, 0x04	; 4

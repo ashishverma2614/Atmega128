@@ -5,7 +5,6 @@
 void UART_Putch(char ch) // print one character
 {
 	while(!(UCSR0A & 0x20));
-
 	UDR0 = ch;
 }
 
