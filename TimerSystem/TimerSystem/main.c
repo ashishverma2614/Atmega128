@@ -22,8 +22,8 @@ enum MODE mode = TIMER_SET; // start mode
 unsigned char fndPattern[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90}; // 0 ~ 9
 
 volatile unsigned char fndIndex = 0; // 0 ~ 3
-volatile unsigned char fndNum[4] = {'0', '0', '0', '0'};
-volatile unsigned int fndStartNum = 0;
+static unsigned char fndNum[4] = {'0', '0', '0', '0'};
+volatile unsigned long int fndStartNum = 0;
 volatile unsigned char isTurnOn = FALSE;
 volatile unsigned char isChangeFnd = FALSE;
 
@@ -69,7 +69,7 @@ ISR(INT3_vect) // key2: change fnd blinking position
 ISR(INT6_vect) // key3 : count-up fnd number at current position
 {
 	fndNum[fndIndex]++;
-	if (fndNum[fndIndex] > '9') fndNum[fndIndex] = '0'; // reset value
+	if (fndNum[fndIndex] == 0x40) fndNum[fndIndex] = 0x30; // reset value
 
     /* convert data to int for start count */
     // also possible to use atoi()
@@ -77,7 +77,7 @@ ISR(INT6_vect) // key3 : count-up fnd number at current position
     
     /* For debug */
     Debug ();
-    printf("Stored fnd start number is: %d \n", fndStartNum);
+    printf("Stored fnd start number is: %lu \n", fndStartNum);
 }
 ISR(INT7_vect)
 {
@@ -98,20 +98,23 @@ ISR(TIMER0_COMP_vect) // 1ms -> for 0.5sec interval blinking fnd
     else tick0_blinking = 0;
 }
 
-ISR(TIMER1_COMPA_vect) // 1ms for 5ms dynamic display
+ISR(TIMER1_COMPA_vect) // 0.1ms for 1ms dynamic display
 {
     static unsigned char tick1_dynamicOp;
     
     tick1_dynamicOp++;
-    if (tick1_dynamicOp <= 5) isChangeFnd = FALSE;
+    if (tick1_dynamicOp <= 10) isChangeFnd = FALSE;
     else
     {
         isChangeFnd = TRUE;
         tick1_dynamicOp = 0;
     }
 }
-ISR(TIMER3_COMPA_vect) // for 100 ms count up
-{  
+//FIXME
+ISR(TIMER3_COMPA_vect) // 100 ms count up
+{
+    fndStartNum++;
+    if (fndStartNum > 9999) fndStartNum = 0;
 }
 
 /* 4. Main method */
@@ -150,6 +153,10 @@ int main(void)
             timer0_off();
             
 			// 2. turn on timer for counting-up
+            timer1_init();
+            timer3_init();
+            // 3. disp countMode fnd
+            disp_countMode_fnd();
 			
 			
 			break;
@@ -215,6 +222,19 @@ void timer0_off()
     OCR0 = 0x00;
     TIMSK &= ~(1 << OCIE0);
 }
+void timer1_init()
+{
+    TCCR1B |= (1 << WGM12) + (1 << CS11) + (1 << CS10); // CTC(mode4), 64 pre-scale
+    OCR1A = 24; // 0.1ms
+    TIMSK = 1 << OCIE1A;
+}
+//TODO: re-check setting
+void timer3_init()
+{
+    TCCR3B |= (1 << WGM32) + (1 << CS31) + (1 << CS30);
+    OCR3A = 24999; // 100ms
+    ETIMSK = 1 << OCIE3A;
+}
 void disp_setMode_fnd(void)
 {
     switch(fndIndex)
@@ -237,8 +257,15 @@ void disp_setMode_fnd(void)
             break;
     }
 }
-
+//TODO:recheck!
 void disp_countMode_fnd()
 {
-    
+    sprintf(fndNum, "%04lu", fndStartNum);
+    if (isChangeFnd)
+    {
+        PORTC = (1 << fndIndex);
+        PORTA = fndPattern[fndNum[3 - fndIndex] - 0x30];
+        fndIndex++;
+        if (fndIndex > 3) fndIndex = 0;
+    }
 }
