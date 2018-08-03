@@ -38,6 +38,7 @@ void timer_init(void);
 void sys_init(void);
 
 void timer0_init(void);
+void timer0_off(void);
 void timer1_init(void);
 void timer3_init(void);
 
@@ -125,9 +126,7 @@ int main(void)
 		{
 			case TIMER_SET:
 			    // 1. turn on timer0 for blinking ON
-			    TCCR0 |= (1 << WGM01) + (1 << CS02); // 64 pre-scale
-                OCR0 = 249; // 1ms
-                TIMSK |= (1 << OCIE0);
+			    timer0_init();
                 
                 // 2. display set mode fnd
                 disp_setMode_fnd();
@@ -148,9 +147,7 @@ int main(void)
             ///////////////////////////////////////////////////////////////////
 			case COUNT_UP:
             // 1. turn off timer0 for blinking OFF
-            TCCR0 |= 0x00;
-            OCR0 = 0x00;
-            TIMSK &= ~(1 << OCIE0);
+            timer0_off();
             
 			// 2. turn on timer for counting-up
 			
@@ -205,6 +202,18 @@ void sys_init ()
 	EXINT_init();
 	fnd_init ();
 	SREG |= 0x80; // GRBL INT enable
+}
+void timer0_init()
+{
+    TCCR0 |= (1 << WGM01) + (1 << CS02); // 64 pre-scale
+    OCR0 = 249; // 1ms
+    TIMSK |= (1 << OCIE0);
+}
+void timer0_off()
+{
+    TCCR0 |= 0x00;
+    OCR0 = 0x00;
+    TIMSK &= ~(1 << OCIE0);
 }
 void disp_setMode_fnd(void)
 {
