@@ -2,164 +2,234 @@
 // count-up timer: 100ms
 // blink on-off: 500ms respectively, total 1000ms
 // 
-// TODO: try to use struct for tick for simplicity instead
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <stdio.h>
-#include <string.h>
+// personal mission: (1)try to reduce the num of variables as much as possible
+//                   (2)make ISR as short as possible
+
+#include "common.h"
 ///////////////////////////////////////////////////////////////////////////////
-#define F_CPU 16000000UL
-#define FND_DATA PORTA //[7:0]
-#define SW_PORT1 PORTD //2, 3
-#define SW_PORT2 PORTE //6, 7
-#define FND_SEL PORTC // PC3, 2, 1, 0
+#define TRUE 1
+#define FALSE 0
+#define FND_DATA PORTA
+#define FND_CONTROL PORTC
+/* printf() on serial monitor for debug */
+FILE OUTPUT = FDEV_SETUP_STREAM(UART0_Putch, NULL, _FDEV_SETUP_WRITE);
 ///////////////////////////////////////////////////////////////////////////////
-typedef unsigned char unit8_t;
-typedef unsigned int unit16_t;
 
-enum {TIMER_SET = 1, COUNT_UP};
+/* 1. Data Field */
+enum MODE { TIMER_SET = 1, COUNT_UP };
+enum MODE mode = TIMER_SET; // start mode
 
-unit8_t mode;
-unit8_t digit = 0; // digit of fnd
-unit8_t fndNum[4] = {0, 0, 0, 0}; // initial value = 0, 0, 0, 0
-unit8_t FND_Pattern[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90};
-unit16_t fndCnt = 0; // change fndNum into one number
-unit16_t time_count = 0; // counter-up var
-unit16_t tick0_blink = 0; // for blinking(.5s)
-//unit16_t tick2_debounce = 0; // for SW de-bounce
-unit16_t tick3_fnd_sel = 0; // for dynamic display
+unsigned char fndPattern[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8, 0x80, 0x90}; // 0 ~ 9
 
-void init(void);
-void fnd_blink(void);
-void fnd_display(void);
+volatile unsigned char fndIndex = 0; // 0 ~ 3
+volatile unsigned char fndNum[4] = {'0', '0', '0', '0'};
+volatile unsigned int fndStartNum = 0;
+volatile unsigned char isTurnOn = FALSE;
+volatile unsigned char isChangeFnd = FALSE;
 
-ISR(INT2_vect) // sw1: enter set mode -> blink the (first) digit
+///////////////////////////////////////////////////////////////////////////////
+/* 2. Function prototypes */
+void Debug(void);
+
+void EXINT_init(void);
+void fnd_init(void);
+void key_init(void);
+void timer_init(void);
+void sys_init(void);
+
+void timer0_init(void);
+void timer1_init(void);
+void timer3_init(void);
+
+void disp_setMode_fnd(void);
+void disp_countMode_fnd(void);
+
+///////////////////////////////////////////////////////////////////////////////
+
+/* 3. ISR */
+ISR(INT2_vect) // key1: enter count set mode, blink the first position
 {
-    mode = TIMER_SET; // blink set-up mode
-    digit = 0;
+	fndIndex = 0; // jump to the timer for blinking
+	mode = TIMER_SET;
     
-    // turn on timer0 for blinking
-    TCCR0 |= (0x01 << WGM01) | (0x01 << CS02); // 64 pre-scale
-    OCR0 = 249; // 1ms
-    TIMSK |= (0x01 << OCIE0);
-    
-    // chattering de-bounce code
-    
+    /* For debug */
+    Debug ();
+    printf("%d \n", mode);
 }
-ISR(INT3_vect) // sw2: change digit
+ISR(INT3_vect) // key2: change fnd blinking position
 {
-    //digit++;
-    if (digit == 4) digit = 0;
-    else digit++;
+	fndIndex++;
+	if (fndIndex > 3) fndIndex = 0; // reset index
     
-    // chattering de-bounce code
+    /* For debug */
+    Debug ();
+    printf("%d\n", fndIndex);
 }
-ISR(INT6_vect) // sw3: count up the current digit
+ISR(INT6_vect) // key3 : count-up fnd number at current position
 {
-    if (fndNum[digit] > 9) fndNum[digit] = 0;
-    else fndNum[digit]++;
+	fndNum[fndIndex]++;
+	if (fndNum[fndIndex] > '9') fndNum[fndIndex] = '0'; // reset value
+
+    /* convert data to int for start count */
+    // also possible to use atoi()
+    fndStartNum = 1000 * (fndNum[3] - 0x30) + 100 * (fndNum[2] - 0x30) + 10 * (fndNum[1] - 0x30) + (fndNum[0] - 0x30);
     
-    // convert elements in the array to one integer number
-    fndCnt = fndNum[3] * 1000 + fndNum[2] * 100 + fndNum[1] * 10 + fndNum[0];
-    
-    // chattering de-bounce code
+    /* For debug */
+    Debug ();
+    printf("Stored fnd start number is: %d \n", fndStartNum);
 }
-ISR(INT7_vect) //sw4: count-up mode
+ISR(INT7_vect)
 {
-    mode = COUNT_UP; // enter count-up mode, no-blinking
+	mode = COUNT_UP; // jump to count-up mode
     
-    // turn off timer0
-    TCCR0 |= 0x00;
-    TCNT0 |= 0x00;
-    TIMSK |= 0x00;
-    // chattering de-bounce code
-    
-    
+    /* For debug */
+    Debug ();
+	printf("%d \n", mode);
 }
-// T/C for blinking
-ISR(TIMER0_COMP_vect) // 1 ms -> "1sec"(0.5 off + 0.5 on)
+///////////////////////////////////////////////////////////////////////////////
+ISR(TIMER0_COMP_vect) // 1ms -> for 0.5sec interval blinking fnd
 {
-    if (mode == TIMER_SET) tick0_blink++;
-    if (tick0_blink > 1000) tick0_blink = 0;
+	static unsigned int tick0_blinking;
+    
+    tick0_blinking++;
+    if (tick0_blinking <= 500) isTurnOn = TRUE;
+    else if (tick0_blinking <= 1000) isTurnOn = FALSE;
+    else tick0_blinking = 0;
 }
-/*
-// TODO: optional T/C, incorporate it into timer0 to reduce the num of timer
-ISR(TIMER2_OVF_vect) // SW de-bounce
+
+ISR(TIMER1_COMPA_vect) // 1ms for 5ms dynamic display
 {
-    tick2_debounce++;
-    if (tick2_debounce == 30)
+    static unsigned char tick1_dynamicOp;
+    
+    tick1_dynamicOp++;
+    if (tick1_dynamicOp <= 5) isChangeFnd = FALSE;
+    else
     {
-        tick2_debounce = 0;
-        EIMSK = 0xCC;
-        TCCR2 = 0x00;
-        EIFR = 0xCC;
-    }
-}*/
-// T/C for count-up
-ISR(TIMER1_COMPA_vect) // 100 ms
-{
-    if (mode == COUNT_UP)
-    {
-        time_count++;
-        if (time_count == 10000) time_count = 0; // time count reset
-    }
-}
-// T/C for dynamic display for both mode
-ISR(TIMER3_COMPA_vect) // 5ms
-{
-    if (tick3_fnd_sel < 4) tick3_fnd_sel++;
-    else tick3_fnd_sel = 0;
-}
-
-
-
-void main(void)
-{
-    init();
-    
-    while (1)
-    {
-        sprintf(); // convert array into count var
+        isChangeFnd = TRUE;
+        tick1_dynamicOp = 0;
     }
 }
-
-void init(void)
-{
-    // fnd port
-    DDRA = 0xFF;
-    DDRC = 0x0F;
-    
-    // SW port
-    DDRD = 0xF3;
-    DDRE = 0x3F;
-    SW_PORT1 &= ~0xF3; // internal pull-up resist
-    SW_PORT2 &= ~0x3F;
-    
-    // EXINT setup
-    EICRA = (0x01 << ISC21) | (0x01 << ISC31); // falling edge detection
-    EICRB = (0x01 << ISC61) | (0x01 << ISC71);
-    EIMSK = (0x01 << INT2) | (0x01 << INT3) | (0x01 << INT6) | (0x01 << INT7); // EXINT[2, 3, 6, 7] enable
-    
-    
-    // timer1_COMPA: 100ms for count-up number
-    TCCR1B = (0x01 << WGM12) | (0x01 << CS12); //CTC, 256 pre-scale 
-    OCR1A = 6249;
-    TIMSK = (0x01 << OCIE1A);
-    
-    // timer3_COMPA: 5ms for dynamic display
-    TCCR3B
-    OCR3A
-    ETIMSK
-    // GRBL INT enable
-    SREG |= 0x80;
+ISR(TIMER3_COMPA_vect) // for 100 ms count up
+{  
 }
 
-void fnd_blink(void)
+/* 4. Main method */
+int main(void)
 {
-    if (tick0_blink <= 500) PORTC &= ~(0x01 << digit); //현재 자릿수에 해당하는 fnd 끔
+	// 1. system setting
+	sys_init ();
+	// 2. system execution
+	while(TRUE)
+	{
+		switch(mode)
+		{
+			case TIMER_SET:
+			    // 1. turn on timer0 for blinking ON
+			    TCCR0 |= (1 << WGM01) + (1 << CS02); // 64 pre-scale
+                OCR0 = 249; // 1ms
+                TIMSK |= (1 << OCIE0);
+                
+                // 2. display set mode fnd
+                disp_setMode_fnd();
+                
+			    // 3. blink port
+			    if (isTurnOn) // turn on the current port
+                {
+                    DDRA = 0xFF; // turn on output
+                    PORTC = (0x01 << fndIndex);
+                }
+                else // turn off the current port
+                {
+                    PORTC = 0x00; // turn off fnd control port   
+                    DDRA = 0x00; // turn off output
+                }
+			break;
+            
+            ///////////////////////////////////////////////////////////////////
+			case COUNT_UP:
+            // 1. turn off timer0 for blinking OFF
+            TCCR0 |= 0x00;
+            OCR0 = 0x00;
+            TIMSK &= ~(1 << OCIE0);
+            
+			// 2. turn on timer for counting-up
+			
+			
+			break;
+		}
+	}
+	return EXIT_SUCCESS;
 }
 
-void fnd_display(void)
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+/*5. Function Implementation */
+
+void Debug () // debug code using serial monitor and LED blinking
 {
-    // TODO
+	UART0_Puts ("SW pressed!\r\n");
+	DDRB = 0x01;
+	PORTB = 0x01;
+	_delay_ms(250);
+	PORTB = 0x00;
+}
+void EXINT_init()
+{
+	DDRD = 0b11110011; // PIND[2:3] as input
+	DDRE = 0b00111111; // PINE[6:7] as input
+	// internal pull-up resistor
+	PORTD = 0b00001100; 
+	PORTE = 0b11000000;
+
+	// Reg. setting
+	EICRA = (1 << ISC21) + (1 << ISC31); // falling edge trigger detection
+	EICRB = (1 << ISC61) + (1 << ISC71);
+	EIMSK = (1 << INT2) + (1 << INT3) + (1 << INT6) + (1 << INT7);
+}
+void fnd_init ()
+{
+	DDRA = 0xFF;
+	DDRC = 0x0F;
+}
+void sys_init ()
+{
+	stdout = &OUTPUT;
+	UART0_Init(UBRR_9600_1X); // for debug
+	EXINT_init();
+	fnd_init ();
+	SREG |= 0x80; // GRBL INT enable
+}
+void disp_setMode_fnd(void)
+{
+    switch(fndIndex)
+    {
+        case 0:
+            PORTC = 0x01;
+            PORTA = fndPattern[fndNum[0] - 0x30];
+            break;
+        case 1:
+            PORTC = 0x02;
+            PORTA = fndPattern[fndNum[1] - 0x30];
+            break;
+        case 2:
+            PORTC = 0x04;
+            PORTA = fndPattern[fndNum[2] - 0x30];
+            break;
+        case 3:
+            PORTC = 0x08;
+            PORTA = fndPattern[fndNum[3] - 0x30];
+            break;
+    }
+}
+
+void disp_countMode_fnd()
+{
+    
 }
