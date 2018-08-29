@@ -116,87 +116,29 @@ Disassembly of section .text:
   9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
 
 0000009e <main>:
-    /* Replace with your application code */
-
-	char led = 0x01; // INIT of led(first on)
-	char swState = 0;
-	
-	DDRB = 0xFF; // led, output
   9e:	8f ef       	ldi	r24, 0xFF	; 255
   a0:	87 bb       	out	0x17, r24	; 23
-	DDRD = 0x00; //SW, input
   a2:	11 ba       	out	0x11, r1	; 17
-int main(void)
-{
-    /* Replace with your application code */
-
-	char led = 0x01; // INIT of led(first on)
-	char swState = 0;
   a4:	90 e0       	ldi	r25, 0x00	; 0
-
-int main(void)
-{
-    /* Replace with your application code */
-
-	char led = 0x01; // INIT of led(first on)
   a6:	81 e0       	ldi	r24, 0x01	; 1
-    while (1) 
-    {
-		PORTB = led; // set led to PORTB
-		if ((PIND & 0x01) != 0 && swState == 0)
-		{
-			swState = 1; // change state of led
   a8:	21 e0       	ldi	r18, 0x01	; 1
-			else
-				led <<= 1;
-
-		}
-		if ((PIND & 0x01) == 0 && swState == 1)
-			swState = 0;
   aa:	30 e0       	ldi	r19, 0x00	; 0
-	
-	DDRB = 0xFF; // led, output
-	DDRD = 0x00; //SW, input
-    while (1) 
-    {
-		PORTB = led; // set led to PORTB
   ac:	88 bb       	out	0x18, r24	; 24
-		if ((PIND & 0x01) != 0 && swState == 0)
   ae:	80 9b       	sbis	0x10, 0	; 16
   b0:	09 c0       	rjmp	.+18     	; 0xc4 <main+0x26>
   b2:	91 11       	cpse	r25, r1
   b4:	07 c0       	rjmp	.+14     	; 0xc4 <main+0x26>
-		{
-			swState = 1; // change state of led
-			if (led == 0x08) // if 8th led is on
   b6:	88 30       	cpi	r24, 0x08	; 8
   b8:	19 f0       	breq	.+6      	; 0xc0 <main+0x22>
-				led = 0x01;
-			else
-				led <<= 1;
   ba:	88 0f       	add	r24, r24
-    while (1) 
-    {
-		PORTB = led; // set led to PORTB
-		if ((PIND & 0x01) != 0 && swState == 0)
-		{
-			swState = 1; // change state of led
   bc:	92 2f       	mov	r25, r18
   be:	02 c0       	rjmp	.+4      	; 0xc4 <main+0x26>
   c0:	92 2f       	mov	r25, r18
-			if (led == 0x08) // if 8th led is on
-				led = 0x01;
   c2:	81 e0       	ldi	r24, 0x01	; 1
-			else
-				led <<= 1;
-
-		}
-		if ((PIND & 0x01) == 0 && swState == 1)
   c4:	80 99       	sbic	0x10, 0	; 16
   c6:	f2 cf       	rjmp	.-28     	; 0xac <main+0xe>
   c8:	91 30       	cpi	r25, 0x01	; 1
   ca:	81 f7       	brne	.-32     	; 0xac <main+0xe>
-			swState = 0;
   cc:	93 2f       	mov	r25, r19
   ce:	ee cf       	rjmp	.-36     	; 0xac <main+0xe>
 
